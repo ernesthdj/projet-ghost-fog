@@ -1,60 +1,59 @@
 # Checklist de préparation
 
-Liste des vérifications à effectuer avant toute opération technique sur le lab. Cette checklist est exécutée par le Responsable Qualité et Tests (Nicolas) en début de chaque séance technique.
+Vérifications à effectuer **en début de chaque séance technique**, avant toute manipulation.
+Exécutée par le Responsable Qualité et Tests (Nicolas), ou par le membre présent en cas d'absence.
 
-## Matériel disponible
+## 0. Continuité (nouveau — S3)
 
-- [ ] Portable Ernest présent et fonctionnel
-- [ ] Portable Renan présent et fonctionnel
-- [ ] Portable Nicolas présent et fonctionnel
-- [ ] Switch 8 ports présent et alimenté
-- [ ] Câbles Ethernet en quantité suffisante et testés
+- [ ] `git pull` effectué : la doc locale est à jour avec le dépôt
+- [ ] Membres présents identifiés et rôles du jour répartis (gérer les absences éventuelles)
 
-## Réseau disponible
+## 1. Matériel & postes
 
-- [ ] Segment isolé via switch monté
-- [ ] Aucun équipement parasite branché sur le switch
-- [ ] Wi-Fi des portables actif pour Internet, distinct du segment lab
-- [ ] DHCP du réseau host-only VirtualBox désactivé sur chaque portable
+- [ ] Les postes nécessaires sont présents et fonctionnels
+- [ ] Droits administrateur disponibles sur chaque poste utilisé
+- [ ] Hyper-V désactivé (si un PC a été réinitialisé) : `bcdedit /set hypervisorlaunchtype off`
 
-## Machines virtuelles
+## 2. Réseau
 
-- [ ] VM serveur FOG installée sur le portable Ernest
-- [ ] VM serveur FOG démarrée et accessible via son interface web
-- [ ] VM source Windows 10 disponible sur le portable Ernest pour la capture
-- [ ] VM cliente cible vide créée sur le portable Renan
-- [ ] VM cliente cible vide créée sur le portable Nicolas
-- [ ] Ordre de boot Network en premier configuré sur les VMs clientes
+- [ ] Toutes les VMs impliquées (FOG + master + clients) sur le **même réseau** VirtualBox
+- [ ] Mode réseau confirmé (Bridged / Internal Network — **pas NAT isolé**) ; voir note réseau de la procédure
+- [ ] FOG en **proxyDHCP** (ne distribue pas d'IP, pas de conflit avec le DHCP de la salle)
+- [ ] Connectivité vérifiée (interface web FOG accessible depuis les postes)
 
-## Espace disque
+## 3. Serveur FOG
 
-- [ ] Minimum 80 Go libres sur le portable Ernest
-- [ ] Minimum 40 Go libres sur les portables Renan et Nicolas
-- [ ] Espace dans la VM FOG suffisant pour le dépôt d'images, 50 Go minimum
+- [ ] VM FOG démarrée, interface web accessible (`http://<IP-FOG>/fog/management`)
+- [ ] Services FOG actifs (`systemctl status fog*`)
+- [ ] Mot de passe admin FOG modifié (plus la valeur par défaut)
+- [ ] Espace disque suffisant sur la VM FOG pour stocker l'image
 
-## Droits administrateur
+## 4. Préparation du Master (séances capture)
 
-- [ ] Compte administrateur disponible sur le portable Ernest
-- [ ] Compte administrateur disponible sur le portable Renan
-- [ ] Compte administrateur disponible sur le portable Nicolas
-- [ ] Identifiants root et mot de passe FOG admin connus et documentés
+- [ ] ISO Windows 10 Pro 22H2 disponible
+- [ ] VM `Win10-Master` créée : disque 40 Go, réseau OK, **boot Réseau en 1er**, BIOS legacy
+- [ ] **Snapshot `avant-sysprep`** pris avant toute exécution de Sysprep
+- [ ] Adresse MAC du master relevée et notée
 
-## Documentation prête
+## 5. Déploiement (séances déploiement)
 
-- [ ] Vault Markdown synchronisé via OneDrive
-- [ ] Rapport de séance ouvert pour la séance en cours
-- [ ] Plan d'attaque à jour
-- [ ] Journal Agile à jour
-- [ ] Documentation officielle FOG ouverte ou téléchargée localement
+- [ ] VM(s) cliente(s) vide(s) créée(s), disque ≥ taille de l'image, boot Réseau en 1er
+- [ ] Adresses MAC des clients relevées et enregistrées dans FOG
+- [ ] Image `Win10-Pro-22H2` présente sur le serveur
 
-## Sécurité
+## 6. Documentation & preuves
 
-- [ ] Mot de passe admin FOG modifié, plus de valeur par défaut
-- [ ] Aucune image contenant des données sensibles à risque de propagation
-- [ ] Sauvegarde de la VM FOG effectuée avant toute manipulation risquée
+- [ ] `Rapport_Seance_XX.md` ouvert pour la séance en cours
+- [ ] Plan d'attaque et journal Agile prêts à être complétés
+- [ ] Dossier `07_Preuves/` prêt à recevoir les captures du jour
 
-## Synthèse
+## 7. Sécurité & sauvegarde
 
-Total des points de contrôle : 22
+- [ ] Aucune donnée sensible dans l'image à déployer
+- [ ] **Export `.ova` de la VM FOG** effectué avant toute manipulation risquée
+- [ ] Snapshots pris avant les opérations irréversibles
 
-Le minimum exigé par la consigne est de 10 points. La checklist dépasse cette exigence pour couvrir l'ensemble des aspects critiques avant toute manipulation technique.
+---
+
+> Cette checklist couvre l'ensemble du cycle (installation → capture → déploiement). Cocher
+> uniquement les sections pertinentes pour la séance en cours.

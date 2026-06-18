@@ -72,9 +72,10 @@ documenté pour être reproductible par un tiers.
 | Création + installation de la VM Ubuntu | ✅ Rédigée & testée | Livrable S2 §3.2–3.3 |
 | Installation de FOG Project (mode proxyDHCP) | ✅ Rédigée & testée | Livrable S2 §3.4–3.5 |
 | Enregistrement d'un hôte client dans FOG | ✅ Rédigée & testée | Livrable S2 §3.6 |
-| Workflow complet capture → déploiement | ✅ Rédigé (théorique) | [`Workflow_Deploiement_FOG.md`](../10_Documentation/05_Procedures/Workflow_Deploiement_FOG.md) |
-| Préparation image via Sysprep | ⏳ Documentée, **à exécuter** | Workflow §Phase 2 |
-| Capture / Déploiement via FOG | ⏳ Documentée, **à exécuter** | Workflow §Phases 3-4 |
+| **Procédure Master & Déploiement (pas-à-pas, clé en main)** | ✅ Rédigée, **à exécuter** | [`Procedure_Master_Deploiement.md`](../10_Documentation/05_Procedures/Procedure_Master_Deploiement.md) |
+| Workflow complet capture → déploiement (vue d'ensemble) | ✅ Rédigé | [`Workflow_Deploiement_FOG.md`](../10_Documentation/05_Procedures/Workflow_Deploiement_FOG.md) |
+| Préparation image via Sysprep | ⏳ Documentée, **à exécuter** | Procédure Master §Phase C |
+| Capture / Déploiement via FOG | ⏳ Documentée, **à exécuter** | Procédure Master §Phases D-F |
 | Restauration après incident | ❌ À rédiger | — |
 
 > Le livrable PDF de la séance 2 (procédure d'installation complète avec captures) :

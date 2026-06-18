@@ -6,7 +6,8 @@ Ce dossier centralise les procédures techniques détaillées du projet.
 
 | Procédure | Statut | Source |
 |---|---|---|
-| Workflow complet de déploiement FOG (capture → deploy) | ✅ Rédigé | [`Workflow_Deploiement_FOG.md`](Workflow_Deploiement_FOG.md) |
+| **Procédure complète Master & Déploiement (clé en main)** | ✅ Rédigée, à exécuter | [`Procedure_Master_Deploiement.md`](Procedure_Master_Deploiement.md) |
+| Workflow complet de déploiement FOG (vue d'ensemble) | ✅ Rédigé | [`Workflow_Deploiement_FOG.md`](Workflow_Deploiement_FOG.md) |
 | Désactivation Hyper-V (prérequis VirtualBox) | ✅ Testé en S2 | Livrable S2 §3.1 |
 | Création + installation VM Ubuntu | ✅ Testé en S2 | Livrable S2 §3.2–3.3 |
 | Installation de FOG Project (proxyDHCP) | ✅ Testé en S2 | Livrable S2 §3.4–3.5 |
