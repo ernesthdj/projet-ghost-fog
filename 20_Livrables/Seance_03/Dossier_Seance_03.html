@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projet Ghost Server, Dossier Séance 3</title>
+<style>
+  :root {
+    --ink:    #16181d;
+    --ink-2:  #3a3f47;
+    --muted:  #7a818b;
+    --faint:  #b6bcc4;
+    --line:   #e3e6ea;
+    --bg:     #ffffff;
+    --bg-soft:#f6f7f9;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
+    background: #ececec;
+    font-size: 10pt;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 210mm; min-height: 297mm; margin: 12mm auto;
+    background: var(--bg); padding: 24mm 24mm;
+    box-shadow: 0 2px 14px rgba(0,0,0,.08);
+    display: flex; flex-direction: column;
+  }
+  .cover { justify-content: space-between; padding: 32mm 28mm; }
+  .cover-head {
+    display: flex; justify-content: space-between;
+    font-size: 9pt; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cover-mid { margin: auto 0; }
+  .rule { width: 56px; height: 2px; background: var(--ink); margin-bottom: 26px; }
+  .cover-mid h1 {
+    font-size: 36pt; font-weight: 700; line-height: 1.1;
+    letter-spacing: -1px; color: var(--ink);
+  }
+  .cover-mid h1 .light { font-weight: 200; color: var(--muted); display: block; }
+  .cover-sub {
+    margin-top: 18px; font-size: 11.5pt; font-weight: 300;
+    color: var(--ink-2); max-width: 85%;
+  }
+  .cover-foot {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    padding-top: 18px; border-top: 1px solid var(--line);
+  }
+  .cover-foot .k { font-size: 8pt; text-transform: uppercase; letter-spacing: 1.5px; color: var(--faint); }
+  .cover-foot .v { font-size: 10pt; font-weight: 500; margin-top: 3px; }
+  .eyebrow {
+    font-size: 8.5pt; text-transform: uppercase; letter-spacing: 3px;
+    color: var(--faint); margin-bottom: 8px;
+  }
+  .h-page { font-size: 24pt; font-weight: 700; letter-spacing: -.5px; margin-bottom: 22px; }
+  .toc { list-style: none; }
+  .toc li {
+    display: grid; grid-template-columns: 44px 1fr auto;
+    align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line);
+  }
+  .toc .num { color: var(--faint); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .toc .label { font-weight: 500; }
+  .toc .pg { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .toc .sub .label { font-weight: 400; color: var(--muted); padding-left: 16px; }
+  .content h2 { font-size: 14pt; font-weight: 700; letter-spacing: -.2px; margin: 18px 0 6px; }
+  .content h3 { font-size: 11pt; font-weight: 600; margin: 12px 0 4px; color: var(--ink-2); }
+  .content p { margin-bottom: 9px; color: var(--ink-2); }
+  .content p.lead { font-size: 12pt; font-weight: 300; color: var(--ink); line-height: 1.55; margin-bottom: 14px; }
+  .content ul { list-style: none; margin: 8px 0 12px; }
+  .content ol { margin: 8px 0 12px 20px; }
+  .content li { padding-left: 18px; position: relative; margin-bottom: 5px; color: var(--ink-2); }
+  .content ul li::before { content: "—"; position: absolute; left: 0; color: var(--faint); }
+  .content ol li { padding-left: 4px; }
+  .content ol li::before { content: none; }
+  .quote {
+    border-left: 2px solid var(--ink); padding: 4px 0 4px 16px;
+    margin: 14px 0; font-weight: 300; font-size: 11pt; color: var(--ink);
+  }
+  table.data {
+    width: 100%; border-collapse: collapse; margin: 10px 0 14px;
+    font-size: 9.5pt;
+  }
+  table.data th {
+    text-align: left; padding: 7px 10px 7px 0;
+    border-bottom: 2px solid var(--ink);
+    font-weight: 700; font-size: 8.5pt;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--ink);
+  }
+  table.data td {
+    padding: 7px 10px 7px 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top; color: var(--ink-2);
+  }
+  table.data td:last-child, table.data th:last-child { padding-right: 0; }
+  .checklist { list-style: none; margin: 8px 0 14px; }
+  .checklist li {
+    padding-left: 22px; position: relative; margin-bottom: 5px; color: var(--ink-2);
+  }
+  .checklist li::before {
+    content: ""; width: 11px; height: 11px;
+    border: 1.5px solid var(--ink); position: absolute; left: 0; top: 4px;
+    background: transparent;
+  }
+  .done li::before { content: "\2713"; border: none; font-size: 12px; line-height: 11px; color: var(--ink); top: 3px; }
+  .footer {
+    margin-top: auto; padding-top: 14px;
+    display: flex; justify-content: space-between;
+    font-size: 8pt; letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint);
+  }
+  @media print {
+    body { background: #fff; }
+    .page {
+      margin: 0; box-shadow: none;
+      page-break-after: always; break-after: page;
+    }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====================== PAGE DE GARDE ====================== -->
+<section class="page cover">
+  <div class="cover-head">
+    <span>BAC Info IPAMC · 2025-2026</span>
+    <span>2026</span>
+  </div>
+  <div class="cover-mid">
+    <div class="rule"></div>
+    <h1>Projet Ghost<span class="light">Dossier Séance 3</span></h1>
+    <p class="cover-sub">Continuité du projet, centralisation de la documentation et dossier de reprise — serveur d'imagerie réseau FOG.</p>
+  </div>
+  <div class="cover-foot">
+    <div><div class="k">Date</div><div class="v">18.06.2026</div></div>
+    <div><div class="k">Auteur</div><div class="v">Hadjiu Ernest</div></div>
+    <div><div class="k">Groupe</div><div class="v">Ernest · Renan · Nicolas</div></div>
+    <div><div class="k">Statut</div><div class="v">Livrable</div></div>
+  </div>
+</section>
+
+<!-- ====================== SOMMAIRE ====================== -->
+<section class="page">
+  <div class="eyebrow">Sommaire</div>
+  <h1 class="h-page">Table des matières</h1>
+  <ol class="toc">
+    <li><span class="num">01</span><span class="label">Présentation &amp; objectifs de la séance</span><span class="pg">03</span></li>
+    <li><span class="num">02</span><span class="label">État d'avancement du projet</span><span class="pg">04</span></li>
+    <li><span class="num">03</span><span class="label">Travail réalisé en séance 3</span><span class="pg">05</span></li>
+    <li><span class="num">04</span><span class="label">Procédures techniques</span><span class="pg">06</span></li>
+    <li><span class="num">05</span><span class="label">Journal des incidents</span><span class="pg">07</span></li>
+    <li><span class="num">06</span><span class="label">Analyse des risques</span><span class="pg">07</span></li>
+    <li><span class="num">07</span><span class="label">Planification &amp; répartition</span><span class="pg">08</span></li>
+    <li><span class="num">08</span><span class="label">Glossaire</span><span class="pg">09</span></li>
+  </ol>
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>02</span></div>
+</section>
+
+<!-- ====================== 01 — PRÉSENTATION ====================== -->
+<section class="page content">
+  <div class="eyebrow">01 — Présentation</div>
+  <h1 class="h-page">Présentation &amp; objectifs</h1>
+
+  <p class="lead">La séance 3 met l'accent sur la continuité : un projet doit pouvoir être repris même lorsqu'un membre est absent, change de service ou quitte l'équipe.</p>
+
+  <h2>Rappel du projet</h2>
+  <p>Le projet vise à mettre en place un serveur d'imagerie réseau <strong>FOG Project</strong> (Free Open Ghost), hébergé sur une machine virtuelle Ubuntu sous VirtualBox. Ce serveur permet de capturer une image système Windows 10 Pro de référence, puis de la déployer automatiquement sur d'autres machines via le réseau, sans réinstallation manuelle.</p>
+
+  <h2>Contexte de la séance</h2>
+  <p>La séance 2 a révélé un risque concret : <strong>la dépendance à une seule personne</strong>. Nicolas étant absent et Ernest réquisitionné comme auditeur, Renan a dû travailler seul sur la base de la documentation préparée. Le constat a été clair : la documentation n'était pas centralisée.</p>
+
+  <h2>Objectifs de la séance 3</h2>
+  <ol>
+    <li>Vérifier que chaque membre comprend le projet (objectif, avancement, blocages, suite).</li>
+    <li>Améliorer et <strong>centraliser</strong> la documentation existante.</li>
+    <li>Créer un <strong>dossier de reprise</strong> exploitable par un tiers.</li>
+    <li>Poursuivre les travaux techniques (préparation de l'image Windows).</li>
+    <li>Identifier les informations détenues par une seule personne.</li>
+  </ol>
+
+  <div class="quote">Toute manipulation non documentée pourra être considérée comme non réalisée.</div>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>03</span></div>
+</section>
+
+<!-- ====================== 02 — ÉTAT D'AVANCEMENT ====================== -->
+<section class="page content">
+  <div class="eyebrow">02 — Avancement</div>
+  <h1 class="h-page">État d'avancement</h1>
+
+  <h2>Ce qui a été réalisé</h2>
+  <table class="data">
+    <thead><tr><th>#</th><th>Réalisation</th><th>Séance</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Compréhension de l'imagerie réseau, choix de l'outil FOG justifié</td><td>S1</td></tr>
+      <tr><td>2</td><td>Architecture cible, comparatif d'outils, analyse des risques</td><td>S1</td></tr>
+      <tr><td>3</td><td>Hyper-V désactivé + VirtualBox installé sur les 3 PC</td><td>S2</td></tr>
+      <tr><td>4</td><td>VM Ubuntu 26.04 LTS créée et fonctionnelle</td><td>S2</td></tr>
+      <tr><td>5</td><td>FOG installé en mode proxyDHCP (sans conflit avec le DHCP de la salle)</td><td>S2</td></tr>
+      <tr><td>6</td><td>Interface web FOG accessible ; premier hôte client enregistré</td><td>S2</td></tr>
+      <tr><td>7</td><td>Boot PXE validé sur CLIENT A</td><td>S2</td></tr>
+      <tr><td>8</td><td>Centralisation de la documentation dans un dépôt Git + réorganisation</td><td>S3</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Ce qui reste à faire</h2>
+  <table class="data">
+    <thead><tr><th>#</th><th>Tâche</th><th>Priorité</th><th>Responsable</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Tester le boot PXE sur CLIENT B (reporté de S2)</td><td>Haute</td><td>Nicolas</td></tr>
+      <tr><td>2</td><td>Créer la VM Windows Master + installer logiciels</td><td>Haute</td><td>Ernest</td></tr>
+      <tr><td>3</td><td>Exécuter Sysprep (généraliser + arrêt)</td><td>Haute</td><td>Ernest</td></tr>
+      <tr><td>4</td><td>Enregistrer le master + créer l'image + tâche Capture</td><td>Haute</td><td>Ernest</td></tr>
+      <tr><td>5</td><td>Capturer l'image Windows via FOG</td><td>Haute</td><td>Ernest</td></tr>
+      <tr><td>6</td><td>Créer les VMs clientes vides + déploiement</td><td>Moyenne</td><td>Renan / Nicolas</td></tr>
+      <tr><td>7</td><td>Exporter la VM FOG en .ova (sauvegarde)</td><td>Haute</td><td>Ernest</td></tr>
+      <tr><td>8</td><td>Procédure de restauration en cas d'incident</td><td>Moyenne</td><td>Nicolas</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>04</span></div>
+</section>
+
+<!-- ====================== 03 — TRAVAIL RÉALISÉ ====================== -->
+<section class="page content">
+  <div class="eyebrow">03 — Séance 3</div>
+  <h1 class="h-page">Travail réalisé en séance 3</h1>
+
+  <p class="lead">La réponse au risque organisationnel identifié en séance 2 : centraliser la documentation et la rendre accessible à toute l'équipe.</p>
+
+  <h2>Mise en place d'un dépôt GitHub partagé</h2>
+  <p>Un dépôt <strong>projet-ghost-fog</strong> a été créé et les trois membres y ont accès en lecture/écriture. Chacun peut désormais récupérer (<em>pull</em>) et envoyer (<em>push</em>) ses modifications, même en cas d'absence d'un autre membre. La documentation ne dépend plus d'un seul poste.</p>
+
+  <h2>Réorganisation de l'arborescence</h2>
+  <p>Les fichiers, auparavant éparpillés sur six dossiers distincts, ont été regroupés dans une arborescence numérotée et lisible par un repreneur externe :</p>
+  <table class="data">
+    <thead><tr><th>Dossier</th><th>Contenu</th></tr></thead>
+    <tbody>
+      <tr><td>00_Consignes</td><td>Consignes officielles du cours (S1 → S3)</td></tr>
+      <tr><td>10_Documentation</td><td>Le savoir vivant (vault Markdown) — source unique de vérité</td></tr>
+      <tr><td>20_Livrables</td><td>Exports figés remis à chaque séance (PDF / HTML)</td></tr>
+      <tr><td>30_Dossier_Reprise</td><td>Dossier de reprise pour un repreneur externe</td></tr>
+      <tr><td>90_Ressources</td><td>Templates, schémas, fichiers annexes</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Uniformisation de la documentation</h2>
+  <ul>
+    <li>Rapatriement du travail de la séance 2 (jusque-là uniquement en PDF) dans la documentation Markdown.</li>
+    <li>Harmonisation des informations (version Ubuntu 26.04, mode proxyDHCP).</li>
+    <li>Rédaction du dossier de reprise avec glossaire et points à vérifier.</li>
+    <li>Rédaction d'une procédure de déploiement master « clé en main » et d'un guide pas-à-pas.</li>
+  </ul>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>05</span></div>
+</section>
+
+<!-- ====================== 04 — PROCÉDURES ====================== -->
+<section class="page content">
+  <div class="eyebrow">04 — Procédures</div>
+  <h1 class="h-page">Procédures techniques</h1>
+
+  <table class="data">
+    <thead><tr><th>Procédure</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td>Désactivation de Hyper-V (prérequis VirtualBox)</td><td>Rédigée &amp; testée (S2)</td></tr>
+      <tr><td>Création + installation de la VM Ubuntu</td><td>Rédigée &amp; testée (S2)</td></tr>
+      <tr><td>Installation de FOG Project (mode proxyDHCP)</td><td>Rédigée &amp; testée (S2)</td></tr>
+      <tr><td>Enregistrement d'un hôte client dans FOG</td><td>Rédigée &amp; testée (S2)</td></tr>
+      <tr><td>Procédure complète Master &amp; Déploiement (clé en main)</td><td>Rédigée, à exécuter</td></tr>
+      <tr><td>Guide pas-à-pas VM Master (débutant)</td><td>Rédigé</td></tr>
+      <tr><td>Préparation de l'image via Sysprep</td><td>Documentée, à exécuter</td></tr>
+      <tr><td>Capture / Déploiement via FOG</td><td>Documentée, à exécuter</td></tr>
+      <tr><td>Restauration après incident</td><td>À rédiger (S5)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Paramètres clés (rappel pour un repreneur)</h2>
+  <ul>
+    <li>Désactiver Hyper-V avant VirtualBox : <code>bcdedit /set hypervisorlaunchtype off</code> (admin) + redémarrage.</li>
+    <li>Nom d'interface réseau Ubuntu = <code>enp0s3</code> (et non eth0) — vérifier avec <code>ip a</code>.</li>
+    <li>À l'installation FOG, répondre <strong>N</strong> à la question DHCP (mode proxyDHCP, évite le conflit).</li>
+    <li>Interface web FOG : <code>http://&lt;IP-serveur&gt;/fog/management</code> — identifiants par défaut à changer immédiatement.</li>
+  </ul>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>06</span></div>
+</section>
+
+<!-- ====================== 05+06 — INCIDENTS & RISQUES ====================== -->
+<section class="page content">
+  <div class="eyebrow">05 — Incidents</div>
+  <h1 class="h-page">Journal des incidents</h1>
+
+  <table class="data">
+    <thead><tr><th>Incident</th><th>Cause</th><th>Solution</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td>VM Ubuntu 64 bits ne démarre pas</td><td>Hyper-V actif monopolise la virtualisation</td><td>bcdedit + redémarrage</td><td>Résolu (S2)</td></tr>
+      <tr><td>Nom d'interface réseau refusé par le script FOG</td><td>Ubuntu nomme l'interface enp0s3 (systemd)</td><td>Vérifier avec ip a</td><td>Résolu (S2)</td></tr>
+      <tr><td>Doc dépendante d'une seule personne</td><td>Documentation non centralisée</td><td>Dépôt Git partagé</td><td>Résolu (S3)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="eyebrow" style="margin-top:18px">06 — Risques</div>
+  <h2>Analyse des risques (synthèse)</h2>
+  <table class="data">
+    <thead><tr><th>Risque</th><th>Impact</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td>Conflit DHCP FOG / DHCP de la salle</td><td>Moyen</td><td>Maîtrisé (proxyDHCP)</td></tr>
+      <tr><td>PXE non fonctionnel sur un client</td><td>Élevé</td><td>Partiel (CLIENT B à tester)</td></tr>
+      <tr><td>Sysprep mal exécuté / master rallumé</td><td>Élevé</td><td>Procédure stricte + snapshot</td></tr>
+      <tr><td>Capture interrompue / image corrompue</td><td>Élevé</td><td>Export .ova avant manip</td></tr>
+      <tr><td>Absence d'un membre</td><td>Moyen</td><td>Maîtrisé (dépôt Git)</td></tr>
+      <tr><td>Perte de la documentation</td><td>Élevé</td><td>Maîtrisé (Git distant + OneDrive)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>07</span></div>
+</section>
+
+<!-- ====================== 07 — PLANIFICATION & RÉPARTITION ====================== -->
+<section class="page content">
+  <div class="eyebrow">07 — Planification</div>
+  <h1 class="h-page">Planification &amp; répartition</h1>
+
+  <h2>Priorités immédiates (séance 3)</h2>
+  <ol>
+    <li>Centraliser la documentation dans le dépôt GitHub partagé — <strong>fait</strong>.</li>
+    <li>Tester le boot PXE sur CLIENT B (Nicolas).</li>
+    <li>Créer et préparer la VM Windows Master + Sysprep (Ernest).</li>
+    <li>Lancer la première capture d'image Windows via FOG (Ernest).</li>
+    <li>Exporter la VM FOG en .ova avant toute manipulation risquée.</li>
+  </ol>
+
+  <h2>Répartition du travail</h2>
+  <table class="data">
+    <thead><tr><th>Membre</th><th>Rôle officiel</th><th>Périmètre séance 3</th></tr></thead>
+    <tbody>
+      <tr><td>Hadjiu Ernest</td><td>Coordinateur, Documentation</td><td>Centralisation doc, dépôt Git, déploiement master (VM + Sysprep + capture)</td></tr>
+      <tr><td>Demeereleere Renan</td><td>Technicien Infrastructure</td><td>Support serveur FOG, VMs clientes de déploiement</td></tr>
+      <tr><td>Terroir Nicolas</td><td>Qualité &amp; Tests</td><td>Test PXE CLIENT B, vérification des déploiements</td></tr>
+    </tbody>
+  </table>
+
+  <div class="quote">La création de la VM Master, initialement tentée par Renan en l'absence d'Ernest, est reprise par Ernest, désormais responsable du déploiement master.</div>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>08</span></div>
+</section>
+
+<!-- ====================== 08 — GLOSSAIRE ====================== -->
+<section class="page content">
+  <div class="eyebrow">08 — Glossaire</div>
+  <h1 class="h-page">Glossaire</h1>
+
+  <table class="data">
+    <thead><tr><th>Terme</th><th>Définition</th></tr></thead>
+    <tbody>
+      <tr><td>Ghost / FOG</td><td>Logiciel de clonage et de déploiement d'images disque par le réseau. FOG (Free Open Ghost) est l'alternative open source utilisée ici.</td></tr>
+      <tr><td>Image système</td><td>Copie complète d'un disque (OS + logiciels + config) redéployable à l'identique sur d'autres machines.</td></tr>
+      <tr><td>PXE</td><td>Preboot eXecution Environment : démarrage d'une machine depuis le réseau au lieu de son disque.</td></tr>
+      <tr><td>DHCP</td><td>Dynamic Host Configuration Protocol : attribue automatiquement les adresses IP sur un réseau.</td></tr>
+      <tr><td>proxyDHCP</td><td>Mode où FOG fournit uniquement l'info de démarrage PXE, sans distribuer d'IP — pour cohabiter avec un DHCP existant.</td></tr>
+      <tr><td>TFTP</td><td>Trivial File Transfer Protocol : transfère le fichier de démarrage initial du PXE.</td></tr>
+      <tr><td>Sysprep</td><td>System Preparation Tool : généralise une image Windows (supprime le SID) pour la déployer sur plusieurs machines.</td></tr>
+      <tr><td>SID</td><td>Security Identifier : identifiant unique d'une installation Windows. Des SID dupliqués causent des conflits.</td></tr>
+      <tr><td>VM</td><td>Virtual Machine : ordinateur émulé par un logiciel (ici VirtualBox).</td></tr>
+      <tr><td>Hyperviseur</td><td>Logiciel qui exécute des machines virtuelles. Ici : VirtualBox 7.x.</td></tr>
+      <tr><td>Bridged / NAT / Internal Network</td><td>Modes réseau VirtualBox. Bridged : VM visible sur le LAN ; NAT : VM partage l'IP de l'hôte ; Internal : réseau privé entre VMs.</td></tr>
+      <tr><td>.ova</td><td>Format d'export d'une VM complète (un fichier), pour sauvegarde ou transfert.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="quote">Document de référence complet : « Dossier de reprise du projet », disponible dans le dépôt partagé.</div>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>09</span></div>
+</section>
+
+</body>
+</html>
