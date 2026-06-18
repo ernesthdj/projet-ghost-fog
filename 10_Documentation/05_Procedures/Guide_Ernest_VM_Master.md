@@ -109,7 +109,7 @@ Navigation : **flèches** pour bouger, **Espace** pour cocher, **Entrée** pour 
 | **Proxy** | Laisser **vide** → **Terminé** |
 | Miroir d'archive | Laisser par défaut → **Terminé** |
 | Stockage guidé | « Use an entire disk » → **Terminé** |
-| Résumé du stockage | **Terminé** → **Continue** (confirme le formatage) |
+| Résumé du stockage | ⚠️ Par défaut, Ubuntu (LVM) n'alloue que **~50 %** du disque à `/`. Pour récupérer tout l'espace (objectif 80 Go S1) : aller sur **`ubuntu-lv`** (mounted at /) → **Edit** → champ **Size** = le **max** (≈ `79G`) → **Save**. Puis **Terminé** → **Continue** (confirme le formatage) |
 | Profil | Nom · serveur : `fog-server` · utilisateur : **`fog`** · mot de passe (⚠️ **note-les**) |
 | Ubuntu Pro | « Skip for now » |
 | SSH Setup | ⚠️ **Cocher « Install OpenSSH server »** (Espace) → **Terminé** |
