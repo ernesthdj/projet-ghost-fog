@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template 2 — Minimal Monochrome</title>
+<style>
+  /* ============================================================
+     TEMPLATE 2 — MINIMAL MONOCHROME
+     Niveaux de gris · Sans-serif · Espace négatif · Épuré
+     ============================================================ */
+  :root {
+    --ink:    #16181d;
+    --ink-2:  #3a3f47;
+    --muted:  #7a818b;
+    --faint:  #b6bcc4;
+    --line:   #e3e6ea;
+    --bg:     #ffffff;
+  }
+
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
+    background: #ececec;
+    font-size: 10.5pt;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 210mm; min-height: 297mm; margin: 12mm auto;
+    background: var(--bg); padding: 30mm 28mm;
+    box-shadow: 0 2px 14px rgba(0,0,0,.08);
+    display: flex; flex-direction: column;
+  }
+
+  /* ---------- PAGE DE GARDE ---------- */
+  .cover { justify-content: space-between; }
+  .cover-head {
+    display: flex; justify-content: space-between;
+    font-size: 9pt; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cover-mid { margin: auto 0; }
+  .rule { width: 56px; height: 2px; background: var(--ink); margin-bottom: 30px; }
+  .cover-mid h1 {
+    font-size: 40pt; font-weight: 700; line-height: 1.08;
+    letter-spacing: -1px; color: var(--ink);
+  }
+  .cover-mid h1 .light { font-weight: 200; color: var(--muted); display: block; }
+  .cover-sub {
+    margin-top: 20px; font-size: 12pt; font-weight: 300;
+    color: var(--ink-2); max-width: 80%;
+  }
+  .cover-foot {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    padding-top: 20px; border-top: 1px solid var(--line);
+  }
+  .cover-foot .k { font-size: 8pt; text-transform: uppercase; letter-spacing: 1.5px; color: var(--faint); }
+  .cover-foot .v { font-size: 10.5pt; font-weight: 500; margin-top: 3px; }
+
+  /* ---------- INDEX ---------- */
+  .eyebrow {
+    font-size: 8.5pt; text-transform: uppercase; letter-spacing: 3px;
+    color: var(--faint); margin-bottom: 10px;
+  }
+  .h-page { font-size: 28pt; font-weight: 700; letter-spacing: -.5px; margin-bottom: 36px; }
+  .toc { list-style: none; }
+  .toc li {
+    display: grid; grid-template-columns: 44px 1fr auto;
+    align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line);
+  }
+  .toc .num { color: var(--faint); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .toc .label { font-weight: 500; }
+  .toc .pg { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .toc .sub .label { font-weight: 400; color: var(--muted); padding-left: 16px; }
+
+  /* ---------- CONTENU ---------- */
+  .content h2 { font-size: 16pt; font-weight: 700; letter-spacing: -.3px; margin: 28px 0 8px; }
+  .content h3 { font-size: 11.5pt; font-weight: 600; margin: 18px 0 4px; color: var(--ink-2); }
+  .content p { margin-bottom: 13px; color: var(--ink-2); }
+  .content p.lead { font-size: 13pt; font-weight: 300; color: var(--ink); line-height: 1.6; }
+  .content ul { list-style: none; margin: 12px 0; }
+  .content li { padding-left: 20px; position: relative; margin-bottom: 6px; color: var(--ink-2); }
+  .content li::before { content: "—"; position: absolute; left: 0; color: var(--faint); }
+  .quote {
+    border-left: 2px solid var(--ink); padding: 6px 0 6px 20px;
+    margin: 18px 0; font-weight: 300; font-size: 11.5pt; color: var(--ink);
+  }
+
+  .footer {
+    margin-top: auto; padding-top: 14px;
+    display: flex; justify-content: space-between;
+    font-size: 8pt; letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint);
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ====================== PAGE DE GARDE ====================== -->
+  <section class="page cover">
+    <div class="cover-head">
+      <span>Nom de l'organisation</span>
+      <span>2026</span>
+    </div>
+
+    <div class="cover-mid">
+      <div class="rule"></div>
+      <h1>Titre du<br>Document<span class="light">Technique</span></h1>
+      <p class="cover-sub">Sous-titre clair décrivant l'objet et le périmètre du document.</p>
+    </div>
+
+    <div class="cover-foot">
+      <div><div class="k">Version</div><div class="v">1.0</div></div>
+      <div><div class="k">Date</div><div class="v">04.06.2026</div></div>
+      <div><div class="k">Auteur</div><div class="v">Prénom Nom</div></div>
+      <div><div class="k">Statut</div><div class="v">Validé</div></div>
+    </div>
+  </section>
+
+  <!-- ====================== INDEX ====================== -->
+  <section class="page">
+    <div class="eyebrow">Sommaire</div>
+    <h1 class="h-page">Table des matières</h1>
+
+    <ol class="toc">
+      <li><span class="num">01</span><span class="label">Introduction</span><span class="pg">03</span></li>
+      <li class="sub"><span class="num"></span><span class="label">Contexte &amp; objectifs</span><span class="pg">03</span></li>
+      <li class="sub"><span class="num"></span><span class="label">Périmètre</span><span class="pg">04</span></li>
+      <li><span class="num">02</span><span class="label">Architecture</span><span class="pg">05</span></li>
+      <li class="sub"><span class="num"></span><span class="label">Vue d'ensemble</span><span class="pg">05</span></li>
+      <li><span class="num">03</span><span class="label">Spécifications</span><span class="pg">08</span></li>
+      <li><span class="num">04</span><span class="label">Sécurité</span><span class="pg">11</span></li>
+      <li><span class="num">05</span><span class="label">Annexes</span><span class="pg">13</span></li>
+    </ol>
+
+    <div class="footer"><span>Document technique</span><span>02</span></div>
+  </section>
+
+  <!-- ====================== CONTENU LOREM ====================== -->
+  <section class="page content">
+    <div class="eyebrow">01 — Introduction</div>
+    <h1 class="h-page">Introduction</h1>
+
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+    <h2>Contexte &amp; objectifs</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    <div class="quote">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</div>
+
+    <h2>Périmètre</h2>
+    <h3>Éléments inclus</h3>
+    <ul>
+      <li>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.</li>
+      <li>Consectetur adipisci velit, sed quia non numquam eius modi tempora.</li>
+      <li>Incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</li>
+    </ul>
+    <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur autem vel eum.</p>
+
+    <h3>Hypothèses</h3>
+    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.</p>
+
+    <div class="footer"><span>Document technique</span><span>03</span></div>
+  </section>
+
+</body>
+</html>

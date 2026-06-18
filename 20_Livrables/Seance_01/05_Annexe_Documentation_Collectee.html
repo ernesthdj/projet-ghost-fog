@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Annexe A4, Documentation collectée</title>
+<style>
+  :root { --ink:#16181d; --ink-2:#3a3f47; --muted:#7a818b; --faint:#b6bcc4; --line:#e3e6ea; --bg:#ffffff; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif; color: var(--ink); background: #ececec; font-size: 10pt; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .page { width: 210mm; min-height: 297mm; margin: 12mm auto; background: var(--bg); padding: 24mm 24mm; box-shadow: 0 2px 14px rgba(0,0,0,.08); display: flex; flex-direction: column; }
+  .cover { justify-content: space-between; padding: 32mm 28mm; }
+  .cover-head { display: flex; justify-content: space-between; font-size: 9pt; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .cover-mid { margin: auto 0; }
+  .rule { width: 56px; height: 2px; background: var(--ink); margin-bottom: 26px; }
+  .cover-mid h1 { font-size: 32pt; font-weight: 700; line-height: 1.1; letter-spacing: -1px; color: var(--ink); }
+  .cover-mid h1 .light { font-weight: 200; color: var(--muted); display: block; }
+  .cover-sub { margin-top: 18px; font-size: 11.5pt; font-weight: 300; color: var(--ink-2); max-width: 85%; }
+  .cover-foot { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .cover-foot .k { font-size: 8pt; text-transform: uppercase; letter-spacing: 1.5px; color: var(--faint); }
+  .cover-foot .v { font-size: 10pt; font-weight: 500; margin-top: 3px; }
+  .eyebrow { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 3px; color: var(--faint); margin-bottom: 8px; }
+  .h-page { font-size: 24pt; font-weight: 700; letter-spacing: -.5px; margin-bottom: 22px; }
+  .content h2 { font-size: 14pt; font-weight: 700; margin: 18px 0 6px; }
+  .content p { margin-bottom: 9px; color: var(--ink-2); }
+  .content p.lead { font-size: 12pt; font-weight: 300; color: var(--ink); line-height: 1.55; margin-bottom: 14px; }
+  table.data { width: 100%; border-collapse: collapse; margin: 10px 0 14px; font-size: 9.5pt; }
+  table.data th { text-align: left; padding: 7px 10px 7px 0; border-bottom: 2px solid var(--ink); font-weight: 700; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .5px; color: var(--ink); }
+  table.data td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); word-break: break-word; }
+  .footer { margin-top: auto; padding-top: 14px; display: flex; justify-content: space-between; font-size: 8pt; letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint); }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+    table, tr, li { page-break-inside: avoid; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="cover-head"><span>IPAMC BAC Info</span><span>2025 — 2026</span></div>
+  <div class="cover-mid">
+    <div class="rule"></div>
+    <h1>Annexe A4<span class="light">Documentation collectée</span></h1>
+    <p class="cover-sub">Sources externes consultées avec leur justification d'utilité dans le projet.</p>
+  </div>
+  <div class="cover-foot">
+    <div><div class="k">Version</div><div class="v">1.0</div></div>
+    <div><div class="k">Date</div><div class="v">04.06.2026</div></div>
+    <div><div class="k">Auteur</div><div class="v">Groupe Ghost</div></div>
+    <div><div class="k">Référence</div><div class="v">GHOST-S01-A4</div></div>
+  </div>
+</section>
+
+<section class="page content">
+  <div class="eyebrow">Séance 1, 04 juin 2026</div>
+  <h1 class="h-page">Sources consultées</h1>
+  <p class="lead">Toute ressource externe ayant influencé une décision technique ou une formulation documentaire est consignée ici.</p>
+
+  <h2>Sources principales</h2>
+  <table class="data">
+    <tr><th>Source</th><th>Type</th><th>Pourquoi utile</th></tr>
+    <tr><td>docs.fogproject.org</td><td>Documentation officielle</td><td>Référence officielle pour l'installation, la configuration et l'usage de FOG. Premier point d'entrée pour toute question technique.</td></tr>
+    <tr><td>forums.fogproject.org</td><td>Forum communautaire</td><td>Cas pratiques, résolution de problèmes courants, échanges entre administrateurs expérimentés.</td></tr>
+    <tr><td>github.com/FOGProject/fogproject</td><td>Code source et notes de version</td><td>Suivi des versions, lecture des notes de version, vérification de la maintenance active du projet.</td></tr>
+    <tr><td>microsoft.com, centre d'évaluation</td><td>ISO système d'exploitation</td><td>Téléchargement de l'ISO Windows 10 Pro 22H2 en version d'évaluation, conforme à l'usage pédagogique.</td></tr>
+    <tr><td>virtualbox.org/manual</td><td>Documentation officielle VirtualBox</td><td>Configuration des modes réseau, en particulier le mode Bridged retenu pour ce projet.</td></tr>
+    <tr><td>learn.microsoft.com, Sysprep</td><td>Documentation officielle</td><td>Procédure officielle de généralisation d'une image Windows via Sysprep, étape critique de la phase de capture.</td></tr>
+  </table>
+
+  <h2>Sources à enrichir au fil du projet</h2>
+  <p>Les tutoriels, vidéos et articles techniques effectivement consultés lors des séances suivantes seront ajoutés ici. Une source citée dans un livrable ultérieur sans être référencée dans ce document sera considérée comme non sourcée.</p>
+
+  <div class="footer"><span>Annexe A4, Documentation collectée</span><span>02</span></div>
+</section>
+
+</body>
+</html>

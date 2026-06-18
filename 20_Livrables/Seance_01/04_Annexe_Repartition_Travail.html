@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Annexe A3, Répartition du travail</title>
+<style>
+  :root { --ink:#16181d; --ink-2:#3a3f47; --muted:#7a818b; --faint:#b6bcc4; --line:#e3e6ea; --bg:#ffffff; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif; color: var(--ink); background: #ececec; font-size: 10pt; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .page { width: 210mm; min-height: 297mm; margin: 12mm auto; background: var(--bg); padding: 24mm 24mm; box-shadow: 0 2px 14px rgba(0,0,0,.08); display: flex; flex-direction: column; }
+  .cover { justify-content: space-between; padding: 32mm 28mm; }
+  .cover-head { display: flex; justify-content: space-between; font-size: 9pt; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .cover-mid { margin: auto 0; }
+  .rule { width: 56px; height: 2px; background: var(--ink); margin-bottom: 26px; }
+  .cover-mid h1 { font-size: 32pt; font-weight: 700; line-height: 1.1; letter-spacing: -1px; color: var(--ink); }
+  .cover-mid h1 .light { font-weight: 200; color: var(--muted); display: block; }
+  .cover-sub { margin-top: 18px; font-size: 11.5pt; font-weight: 300; color: var(--ink-2); max-width: 85%; }
+  .cover-foot { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .cover-foot .k { font-size: 8pt; text-transform: uppercase; letter-spacing: 1.5px; color: var(--faint); }
+  .cover-foot .v { font-size: 10pt; font-weight: 500; margin-top: 3px; }
+  .eyebrow { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 3px; color: var(--faint); margin-bottom: 8px; }
+  .h-page { font-size: 24pt; font-weight: 700; letter-spacing: -.5px; margin-bottom: 22px; }
+  .content h2 { font-size: 14pt; font-weight: 700; margin: 18px 0 6px; }
+  .content p { margin-bottom: 9px; color: var(--ink-2); }
+  .content p.lead { font-size: 12pt; font-weight: 300; color: var(--ink); line-height: 1.55; margin-bottom: 14px; }
+  table.data { width: 100%; border-collapse: collapse; margin: 10px 0 14px; font-size: 9.5pt; }
+  table.data th { text-align: left; padding: 7px 10px 7px 0; border-bottom: 2px solid var(--ink); font-weight: 700; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .5px; color: var(--ink); }
+  table.data td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+  .footer { margin-top: auto; padding-top: 14px; display: flex; justify-content: space-between; font-size: 8pt; letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint); }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+    table, tr, li { page-break-inside: avoid; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="cover-head"><span>IPAMC BAC Info</span><span>2025 — 2026</span></div>
+  <div class="cover-mid">
+    <div class="rule"></div>
+    <h1>Annexe A3<span class="light">Répartition du travail</span></h1>
+    <p class="cover-sub">Rôles officiels, charges effectives et rotation prévue pour les séances suivantes.</p>
+  </div>
+  <div class="cover-foot">
+    <div><div class="k">Version</div><div class="v">1.0</div></div>
+    <div><div class="k">Date</div><div class="v">04.06.2026</div></div>
+    <div><div class="k">Auteur</div><div class="v">Groupe Ghost</div></div>
+    <div><div class="k">Référence</div><div class="v">GHOST-S01-A3</div></div>
+  </div>
+</section>
+
+<section class="page content">
+  <div class="eyebrow">Séance 1, 04 juin 2026</div>
+  <h1 class="h-page">Rôles et contributions</h1>
+
+  <h2>Rôles officiels attribués</h2>
+  <table class="data">
+    <tr><th>Membre</th><th>Rôle officiel</th></tr>
+    <tr><td>Hadjiu Ernest</td><td>Coordinateur et Responsable Documentation</td></tr>
+    <tr><td>Demeereleere Renan</td><td>Technicien Infrastructure</td></tr>
+    <tr><td>Terroir Nicolas</td><td>Responsable Qualité et Tests</td></tr>
+  </table>
+
+  <h2>Travail réalisé pendant la séance 1</h2>
+  <table class="data">
+    <tr><th>Membre</th><th>Contributions principales</th></tr>
+    <tr><td>Hadjiu Ernest</td><td>Cadrage du projet, lecture croisée des consignes, structuration de l'espace de travail collaboratif, rédaction des livrables documentaires (rapport d'analyse, architecture, risques, checklist, documents transverses), préparation des supports finaux au format PDF.</td></tr>
+    <tr><td>Demeereleere Renan</td><td>Recherche documentaire technique sur FOG Project, contribution à la définition de l'architecture, production d'un premier brouillon de workflow technique à régénérer en séance 2 pour l'aligner sur l'architecture distribuée verrouillée.</td></tr>
+    <tr><td>Terroir Nicolas</td><td>Contribution aux décisions techniques, bascule de son environnement Hyper-V vers VirtualBox pour aligner l'équipe, préparation de son rôle de validation et de tests pour les séances suivantes.</td></tr>
+  </table>
+
+  <h2>Rotation des rôles prévue</h2>
+  <p>Conformément à la consigne de rotation par séquence, les rôles seront permutés au début de chaque nouvelle séquence du projet. La répartition des séquences suivantes sera décidée en début de séance 2, en fonction des compétences mises en valeur par chaque membre et de la charge effective de la séance précédente.</p>
+
+  <div class="footer"><span>Annexe A3, Répartition du travail</span><span>02</span></div>
+</section>
+
+</body>
+</html>

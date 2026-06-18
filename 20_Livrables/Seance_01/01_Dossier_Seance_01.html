@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projet Ghost Server, Dossier Séance 1</title>
+<style>
+  :root {
+    --ink:    #16181d;
+    --ink-2:  #3a3f47;
+    --muted:  #7a818b;
+    --faint:  #b6bcc4;
+    --line:   #e3e6ea;
+    --bg:     #ffffff;
+    --bg-soft:#f6f7f9;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
+    background: #ececec;
+    font-size: 10pt;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 210mm; min-height: 297mm; margin: 12mm auto;
+    background: var(--bg); padding: 24mm 24mm;
+    box-shadow: 0 2px 14px rgba(0,0,0,.08);
+    display: flex; flex-direction: column;
+  }
+  .cover { justify-content: space-between; padding: 32mm 28mm; }
+  .cover-head {
+    display: flex; justify-content: space-between;
+    font-size: 9pt; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cover-mid { margin: auto 0; }
+  .rule { width: 56px; height: 2px; background: var(--ink); margin-bottom: 26px; }
+  .cover-mid h1 {
+    font-size: 36pt; font-weight: 700; line-height: 1.1;
+    letter-spacing: -1px; color: var(--ink);
+  }
+  .cover-mid h1 .light { font-weight: 200; color: var(--muted); display: block; }
+  .cover-sub {
+    margin-top: 18px; font-size: 11.5pt; font-weight: 300;
+    color: var(--ink-2); max-width: 85%;
+  }
+  .cover-foot {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    padding-top: 18px; border-top: 1px solid var(--line);
+  }
+  .cover-foot .k { font-size: 8pt; text-transform: uppercase; letter-spacing: 1.5px; color: var(--faint); }
+  .cover-foot .v { font-size: 10pt; font-weight: 500; margin-top: 3px; }
+  .eyebrow {
+    font-size: 8.5pt; text-transform: uppercase; letter-spacing: 3px;
+    color: var(--faint); margin-bottom: 8px;
+  }
+  .h-page { font-size: 24pt; font-weight: 700; letter-spacing: -.5px; margin-bottom: 22px; }
+  .toc { list-style: none; }
+  .toc li {
+    display: grid; grid-template-columns: 44px 1fr auto;
+    align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line);
+  }
+  .toc .num { color: var(--faint); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .toc .label { font-weight: 500; }
+  .toc .pg { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .toc .sub .label { font-weight: 400; color: var(--muted); padding-left: 16px; }
+  .content h2 { font-size: 14pt; font-weight: 700; letter-spacing: -.2px; margin: 18px 0 6px; }
+  .content h3 { font-size: 11pt; font-weight: 600; margin: 12px 0 4px; color: var(--ink-2); }
+  .content p { margin-bottom: 9px; color: var(--ink-2); }
+  .content p.lead { font-size: 12pt; font-weight: 300; color: var(--ink); line-height: 1.55; margin-bottom: 14px; }
+  .content ul { list-style: none; margin: 8px 0 12px; }
+  .content ol { margin: 8px 0 12px 20px; }
+  .content li { padding-left: 18px; position: relative; margin-bottom: 5px; color: var(--ink-2); }
+  .content ul li::before { content: "—"; position: absolute; left: 0; color: var(--faint); }
+  .content ol li { padding-left: 4px; }
+  .content ol li::before { content: none; }
+  .quote {
+    border-left: 2px solid var(--ink); padding: 4px 0 4px 16px;
+    margin: 14px 0; font-weight: 300; font-size: 11pt; color: var(--ink);
+  }
+  table.data {
+    width: 100%; border-collapse: collapse; margin: 10px 0 14px;
+    font-size: 9.5pt;
+  }
+  table.data th {
+    text-align: left; padding: 7px 10px 7px 0;
+    border-bottom: 2px solid var(--ink);
+    font-weight: 700; font-size: 8.5pt;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--ink);
+  }
+  table.data td {
+    padding: 7px 10px 7px 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top; color: var(--ink-2);
+  }
+  table.data td:last-child, table.data th:last-child { padding-right: 0; }
+  .checklist { list-style: none; margin: 8px 0 14px; }
+  .checklist li {
+    padding-left: 22px; position: relative; margin-bottom: 5px; color: var(--ink-2);
+  }
+  .checklist li::before {
+    content: ""; width: 11px; height: 11px;
+    border: 1.5px solid var(--ink); position: absolute; left: 0; top: 4px;
+    background: transparent;
+  }
+  .footer {
+    margin-top: auto; padding-top: 14px;
+    display: flex; justify-content: space-between;
+    font-size: 8pt; letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint);
+  }
+  @media print {
+    body { background: #fff; }
+    .page {
+      margin: 0; box-shadow: none;
+      page-break-after: always; break-after: page;
+    }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+    table { page-break-inside: avoid; break-inside: avoid; }
+    tr, li { page-break-inside: avoid; break-inside: avoid; }
+    .quote { page-break-inside: avoid; break-inside: avoid; }
+    img { page-break-inside: avoid; break-inside: avoid; max-height: 230mm; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 : COVER -->
+<section class="page cover">
+  <div class="cover-head">
+    <span>IPAMC BAC Info</span>
+    <span>2025 — 2026</span>
+  </div>
+  <div class="cover-mid">
+    <div class="rule"></div>
+    <h1>Projet<br>Ghost Server<span class="light">Dossier Séance 1</span></h1>
+    <p class="cover-sub">Analyse, préparation et documentation initiale du déploiement d'un serveur FOG Project pour la gestion d'image système Windows 10.</p>
+  </div>
+  <div class="cover-foot">
+    <div><div class="k">Version</div><div class="v">1.0</div></div>
+    <div><div class="k">Date</div><div class="v">04.06.2026</div></div>
+    <div><div class="k">Auteur</div><div class="v">Groupe Ghost</div></div>
+    <div><div class="k">Référence</div><div class="v">GHOST-S01</div></div>
+  </div>
+</section>
+
+<!-- PAGE 2 : SOMMAIRE -->
+<section class="page">
+  <div class="eyebrow">Sommaire</div>
+  <h1 class="h-page">Table des matières</h1>
+  <ol class="toc">
+    <li><span class="num">01</span><span class="label">Rapport de séance</span><span class="pg">03</span></li>
+    <li><span class="num">02</span><span class="label">Rapport d'analyse</span><span class="pg">05</span></li>
+    <li class="sub"><span class="num"></span><span class="label">Présentation de FOG Project</span><span class="pg">05</span></li>
+    <li class="sub"><span class="num"></span><span class="label">Le déploiement d'image système</span><span class="pg">06</span></li>
+    <li class="sub"><span class="num"></span><span class="label">Cas d'utilisation</span><span class="pg">07</span></li>
+    <li class="sub"><span class="num"></span><span class="label">Questions de réflexion</span><span class="pg">09</span></li>
+    <li class="sub"><span class="num"></span><span class="label">Justification du choix</span><span class="pg">11</span></li>
+    <li><span class="num">03</span><span class="label">Architecture cible</span><span class="pg">12</span></li>
+    <li class="sub"><span class="num"></span><span class="label">Description et topologie</span><span class="pg">12</span></li>
+    <li class="sub"><span class="num"></span><span class="label">Schéma réseau</span><span class="pg">13</span></li>
+    <li class="sub"><span class="num"></span><span class="label">Spécifications matérielles</span><span class="pg">14</span></li>
+    <li><span class="num">04</span><span class="label">Analyse des risques</span><span class="pg">16</span></li>
+    <li><span class="num">05</span><span class="label">Checklist de préparation</span><span class="pg">17</span></li>
+  </ol>
+  <div class="footer"><span>Projet Ghost Server</span><span>02</span></div>
+</section>
+
+<!-- PAGE 3 : RAPPORT DE SEANCE PARTIE 1 -->
+<section class="page content">
+  <div class="eyebrow">01 — Rapport de séance</div>
+  <h1 class="h-page">Rapport de séance</h1>
+  <p class="lead">Synthèse administrative et opérationnelle de la première séance du projet Ghost Server.</p>
+
+  <h2>Informations générales</h2>
+  <table class="data">
+    <tr><th style="width:35%">Champ</th><th>Valeur</th></tr>
+    <tr><td>Date</td><td>04 juin 2026</td></tr>
+    <tr><td>Numéro de séance</td><td>01</td></tr>
+    <tr><td>Membres présents</td><td>Hadjiu Ernest, Demeereleere Renan, Terroir Nicolas</td></tr>
+    <tr><td>Chargée du cours</td><td>Vanessa Robbe</td></tr>
+  </table>
+
+  <h2>Rôles attribués</h2>
+  <table class="data">
+    <tr><th>Membre</th><th>Rôle officiel</th></tr>
+    <tr><td>Hadjiu Ernest</td><td>Coordinateur et Responsable Documentation</td></tr>
+    <tr><td>Demeereleere Renan</td><td>Technicien Infrastructure</td></tr>
+    <tr><td>Terroir Nicolas</td><td>Responsable Qualité et Tests</td></tr>
+  </table>
+
+  <h2>Objectifs de la séance</h2>
+  <ol>
+    <li>Comprendre l'outil Ghost et le concept de déploiement d'image système.</li>
+    <li>Proposer une architecture simple cohérente avec les ressources du groupe.</li>
+    <li>Identifier les besoins matériels et logiciels.</li>
+    <li>Répartir les rôles officiels.</li>
+    <li>Produire une première documentation professionnelle.</li>
+    <li>Identifier les risques principaux du projet.</li>
+  </ol>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>03</span></div>
+</section>
+
+<!-- PAGE 4 : RAPPORT DE SEANCE PARTIE 2 -->
+<section class="page content">
+  <div class="eyebrow">01 — Rapport de séance (suite)</div>
+  <h1 class="h-page">Travail et suivi</h1>
+
+  <h2>Travail réalisé</h2>
+  <ul>
+    <li>Étude croisée des quatre documents de consignes fournis par Vanessa Robbe, chargée du cours.</li>
+    <li>Analyse comparative des principaux outils de déploiement d'image disponibles en modèle freemium.</li>
+    <li>Choix argumenté de l'outil FOG Project comme solution retenue.</li>
+    <li>Définition d'une architecture cible distribuée sur trois portables reliés par un switch dédié.</li>
+    <li>Harmonisation des hyperviseurs sur VirtualBox pour les trois membres.</li>
+    <li>Rédaction du rapport d'analyse, du schéma réseau, de l'analyse des risques et de la checklist de préparation.</li>
+    <li>Mise en place d'un espace de travail collaboratif servant de mémoire au groupe.</li>
+  </ul>
+
+  <h2>Difficultés rencontrées</h2>
+  <ul>
+    <li>Hétérogénéité initiale des environnements de virtualisation entre les membres, avec un membre travaillant sur Hyper-V et deux sur VirtualBox.</li>
+    <li>Sujet technique nouveau, le concept d'image système et de déploiement réseau étant abordé pour la première fois par l'équipe.</li>
+  </ul>
+
+  <h2>Solutions retenues</h2>
+  <ul>
+    <li>Standardisation sur VirtualBox pour les trois membres, afin d'assurer la portabilité des images de machine virtuelle au format VDI sans conversion intermédiaire.</li>
+    <li>Production d'une matière brute documentaire abondante sur FOG, le déploiement d'image et le contexte ITIL, alimentant la défense orale future.</li>
+  </ul>
+
+  <h2>Travail restant pour la séance suivante</h2>
+  <ul>
+    <li>Installation effective de la VM Ubuntu Server destinée à FOG.</li>
+    <li>Installation de FOG Project via le script officiel.</li>
+    <li>Configuration réseau Bridged sur les trois portables et test de connectivité via switch.</li>
+    <li>Création de la VM Windows 10 source destinée à la capture.</li>
+    <li>Première capture d'image et premier déploiement de test.</li>
+  </ul>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>04</span></div>
+</section>
+
+<!-- PAGE 5 : PRESENTATION FOG -->
+<section class="page content">
+  <div class="eyebrow">02 — Rapport d'analyse</div>
+  <h1 class="h-page">Présentation de FOG Project</h1>
+  <p class="lead">FOG est un logiciel libre de déploiement d'images système, distribué sous licence GPL et utilisé en milieu éducatif comme en entreprise.</p>
+
+  <h2>Qu'est-ce que FOG</h2>
+  <p>FOG est un serveur de gestion d'image système open source. Il s'installe sur une distribution Linux et expose une interface d'administration accessible via un navigateur web. Il s'appuie sur les services TFTP, HTTP, MySQL et un démon PXE pour permettre à des postes clients de démarrer sur le réseau, de capturer ou de recevoir une image disque, et d'exécuter des scripts d'installation post-déploiement.</p>
+  <p>Le nom du projet vient de l'acronyme Free Open-source Ghost, en référence à Symantec Ghost, l'outil historique de clonage de disque dont FOG reprend la logique fonctionnelle dans une version communautaire.</p>
+
+  <h2>À quoi sert FOG</h2>
+  <p>FOG sert à automatiser la mise en service de postes informatiques. Il évite l'installation manuelle, poste par poste, du système d'exploitation, des logiciels métier et des configurations spécifiques. Un parc de plusieurs dizaines ou centaines de machines peut ainsi être déployé ou restauré en quelques heures au lieu de plusieurs jours.</p>
+  <p>FOG sert également à standardiser les postes d'un parc. Tous les ordinateurs reçoivent strictement la même image, ce qui garantit un environnement homogène, plus simple à maintenir et à dépanner.</p>
+
+  <h2>Contextes d'utilisation typiques</h2>
+  <ul>
+    <li>Établissements scolaires et universitaires gérant des salles informatiques pédagogiques.</li>
+    <li>Entreprises avec un parc de postes utilisateurs standardisés.</li>
+    <li>Services informatiques publics soumis à des contraintes budgétaires fortes excluant les solutions propriétaires.</li>
+    <li>Laboratoires de test où des machines doivent être fréquemment réinitialisées à un état connu.</li>
+    <li>Centres de formation continue avec rotation rapide des stagiaires.</li>
+  </ul>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>05</span></div>
+</section>
+
+<!-- PAGE 6 : DEPLOIEMENT IMAGE -->
+<section class="page content">
+  <div class="eyebrow">02 — Rapport d'analyse</div>
+  <h1 class="h-page">Le déploiement d'image système</h1>
+
+  <h2>Ce qu'est une image système</h2>
+  <p>Une image système est une copie complète d'un disque dur ou d'une partition, stockée dans un fichier unique ou un ensemble de fichiers. Elle contient le système d'exploitation, les pilotes, les logiciels installés, les configurations utilisateur et toutes les données présentes sur le disque source au moment de la capture.</p>
+  <p>Une image système se distingue d'une sauvegarde de fichiers classique par le fait qu'elle restaure un système entièrement opérationnel et démarrable, et non un simple ensemble de documents.</p>
+
+  <h2>Avantages</h2>
+  <ul>
+    <li>Gain de temps massif sur les déploiements en série.</li>
+    <li>Standardisation absolue du parc.</li>
+    <li>Reproductibilité, avec restauration possible à un état connu en quelques minutes.</li>
+    <li>Réduction des erreurs humaines d'installation.</li>
+    <li>Possibilité de tester l'image en amont, ce qui élimine les surprises lors du déploiement.</li>
+  </ul>
+
+  <h2>Limites</h2>
+  <ul>
+    <li>L'image est figée au moment de sa capture. Toute mise à jour ultérieure nécessite une recapture ou des scripts post-déploiement.</li>
+    <li>Les images peuvent être lourdes, de 15 à 50 Go pour un Windows 10 standard, ce qui sollicite le réseau et le stockage.</li>
+    <li>Le matériel doit être suffisamment homogène, sinon les pilotes posent problème lors du déploiement sur un modèle différent.</li>
+    <li>Le déploiement écrase tout le contenu du disque cible, ce qui exige une vigilance sur les données existantes.</li>
+  </ul>
+
+  <h2>Risques</h2>
+  <ul>
+    <li>Image corrompue lors de la capture ou du transfert, conduisant à un poste inutilisable après déploiement.</li>
+    <li>Mauvaise sélection de la cible, conduisant à l'écrasement de données critiques sur un mauvais poste.</li>
+    <li>Pilotes manquants pour le matériel cible, conduisant à un système instable au premier démarrage.</li>
+    <li>Identifiants système non régénérés après déploiement, créant des conflits réseau si Sysprep n'a pas été utilisé côté Windows.</li>
+    <li>Configurations sensibles incluses involontairement dans l'image et propagées sur l'ensemble du parc.</li>
+  </ul>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>06</span></div>
+</section>
+
+<!-- PAGE 7 : CAS USAGE AVANTAGES -->
+<section class="page content">
+  <div class="eyebrow">02 — Rapport d'analyse</div>
+  <h1 class="h-page">Cas d'utilisation, avantages</h1>
+  <p class="lead">Cinq avantages identifiés, dépassant le minimum de trois exigé par les consignes.</p>
+
+  <ol>
+    <li><strong>Gain de temps considérable sur les déploiements de masse.</strong> Une installation manuelle prend deux à trois heures par poste. Un déploiement par image se mesure en quinzaine de minutes, multicast compris.</li>
+    <li><strong>Standardisation du parc informatique.</strong> Tous les postes reçoivent exactement la même configuration, ce qui simplifie le support, le dépannage et la formation des utilisateurs.</li>
+    <li><strong>Restauration rapide après incident.</strong> Un poste compromis, infecté ou défaillant peut être ramené à un état sain en quelques minutes, sans réinstallation complète.</li>
+    <li><strong>Réduction des erreurs humaines.</strong> L'automatisation supprime les oublis classiques de l'installation manuelle, comme un logiciel oublié ou un paramètre mal configuré.</li>
+    <li><strong>Coût opérationnel réduit pour les structures avec un parc important.</strong> Le temps technicien économisé représente plusieurs milliers d'euros par an dès quelques dizaines de postes.</li>
+  </ol>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>07</span></div>
+</section>
+
+<!-- PAGE 8 : CAS USAGE INCONVENIENTS -->
+<section class="page content">
+  <div class="eyebrow">02 — Rapport d'analyse</div>
+  <h1 class="h-page">Cas d'utilisation, inconvénients</h1>
+  <p class="lead">Six inconvénients identifiés, dépassant le minimum de trois exigé par les consignes.</p>
+
+  <ol>
+    <li><strong>Investissement initial en temps.</strong> La préparation de l'image de référence, sa validation et la configuration du serveur de déploiement représentent plusieurs jours de travail avant le premier déploiement utile.</li>
+    <li><strong>Rigidité face à l'hétérogénéité matérielle.</strong> Si le parc comporte plusieurs modèles de PC différents, il faut soit maintenir plusieurs images, soit gérer dynamiquement les pilotes, ce qui complexifie l'exploitation.</li>
+    <li><strong>Risque de propagation d'une erreur à grande échelle.</strong> Une mauvaise image déployée sur cinquante postes affecte cinquante postes simultanément.</li>
+    <li><strong>Dépendance au réseau et au serveur de déploiement.</strong> Un serveur FOG hors service ou un réseau saturé bloque toute opération de remise en service.</li>
+    <li><strong>Image vieillissante.</strong> Sans recapture régulière, l'image accumule un retard sur les mises à jour de sécurité et nécessite un long cycle de patchs après chaque déploiement.</li>
+    <li><strong>Effacement total de la cible.</strong> Le déploiement écrase tout, donc inadapté pour préserver des données locales utilisateur sans sauvegarde préalable.</li>
+  </ol>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>08</span></div>
+</section>
+
+<!-- PAGE 9 : REFLEXIONS MAINTENANCE CYBER -->
+<section class="page content">
+  <div class="eyebrow">02 — Rapport d'analyse</div>
+  <h1 class="h-page">Maintenance et cyber-résilience</h1>
+
+  <h2>Maintenance</h2>
+  <p>FOG facilite principalement la maintenance corrective et la maintenance évolutive. Sur le volet correctif, lorsqu'un poste tombe en panne logicielle (corruption du système, infection, profil utilisateur cassé), la procédure de remise en état devient extrêmement courte. Plutôt que de diagnostiquer en profondeur, le technicien redéploie l'image de référence et restitue un poste fonctionnel en moins d'une heure.</p>
+  <p>Sur le volet évolutif, FOG permet de propager une nouvelle version d'image (mise à jour du système, nouveau logiciel métier, patch de sécurité critique) sur l'ensemble du parc de manière coordonnée.</p>
+  <p>À l'inverse, FOG n'aide ni la maintenance préventive individuelle, ni le diagnostic de panne matérielle, qui restent du ressort des outils classiques d'administration et de monitoring.</p>
+
+  <h2>Cyber-résilience</h2>
+  <p>Après un incident de sécurité comme une attaque par rançongiciel ou une compromission d'un poste par un programme malveillant, la priorité opérationnelle est de revenir à un état fiable rapidement. FOG répond directement à ce besoin.</p>
+  <p>Plutôt que de tenter une désinfection dont on ne sera jamais certain qu'elle a tout éradiqué, le redéploiement d'une image saine garantit un retour à un état connu, vérifié et propre. Le poste compromis est entièrement réécrit, ce qui élimine les rémanences potentielles dans des partitions cachées ou des zones non scannées par un antivirus.</p>
+  <p>FOG s'inscrit ainsi dans une stratégie de cyber-résilience moderne, qui cherche à minimiser le temps de retour à la normale, ce que ITIL formalise sous le terme de RTO (Recovery Time Objective, objectif de durée maximale d'interruption admissible).</p>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>09</span></div>
+</section>
+
+<!-- PAGE 10 : SAUVEGARDE ITIL -->
+<section class="page content">
+  <div class="eyebrow">02 — Rapport d'analyse</div>
+  <h1 class="h-page">Sauvegarde et lien ITIL</h1>
+
+  <h2>Ghost remplace-t-il une sauvegarde</h2>
+  <p>Non. FOG capture l'état du système à un instant donné, généralement celui d'un poste fraîchement préparé sans données utilisateur réelles. Une fois capturée, l'image vit indépendamment des évolutions du poste source. Si les utilisateurs créent ou modifient des fichiers sur leurs postes, ces données ne sont pas sauvegardées par FOG.</p>
+  <p>La logique de FOG est celle d'une image de référence, pas d'une copie périodique des données vivantes. Une vraie stratégie de sauvegarde implique des copies régulières, automatiques, datées, avec rotation et conservation, idéalement selon le principe 3-2-1 (trois copies sur deux supports différents dont une copie hors site).</p>
+  <p>FOG et la sauvegarde sont donc complémentaires, pas substituables. L'un protège le socle système, l'autre protège les données.</p>
+
+  <h2>Lien ITIL</h2>
+  <p>ITIL, acronyme de Information Technology Infrastructure Library, est un référentiel de bonnes pratiques de gestion des services informatiques. FOG s'y intègre sur deux processus clés.</p>
+  <h3>Gestion des incidents</h3>
+  <p>FOG raccourcit drastiquement l'indicateur MTTR (Mean Time To Repair, durée moyenne de réparation). Un incident classé majeur sur un poste utilisateur peut passer de plusieurs heures à moins d'une heure de remise en état.</p>
+  <h3>Continuité de service</h3>
+  <p>FOG contribue à la capacité de l'organisation à absorber un incident sans interruption durable de l'activité. Pour les contextes où plusieurs postes doivent rester opérationnels en permanence, la possibilité de redéployer rapidement un poste de remplacement préconfiguré est un élément clé du plan de continuité.</p>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>10</span></div>
+</section>
+
+<!-- PAGE 11 : JUSTIFICATION CHOIX -->
+<section class="page content">
+  <div class="eyebrow">02 — Rapport d'analyse</div>
+  <h1 class="h-page">Justification du choix FOG</h1>
+  <p class="lead">FOG Project a été retenu après comparaison de cinq solutions concurrentes.</p>
+
+  <h2>Matrice comparative</h2>
+  <table class="data">
+    <tr>
+      <th>Critère</th><th>FOG</th><th>Clonezilla SE</th><th>WDS / MDT</th><th>Symantec</th><th>Acronis</th>
+    </tr>
+    <tr><td>Coût</td><td>Gratuit, GPL</td><td>Gratuit, GPL</td><td>Avec Win Server</td><td>Payant</td><td>Payant</td></tr>
+    <tr><td>OS serveur</td><td>Linux</td><td>Linux</td><td>Windows Server</td><td>Windows</td><td>Windows</td></tr>
+    <tr><td>Interface</td><td>Web</td><td>CLI</td><td>Console MMC</td><td>Propriétaire</td><td>Propriétaire</td></tr>
+    <tr><td>Multicast</td><td>Oui</td><td>Oui</td><td>Oui</td><td>Oui</td><td>Oui</td></tr>
+    <tr><td>Communauté</td><td>Active</td><td>Active</td><td>Massive</td><td>Limitée</td><td>Limitée</td></tr>
+    <tr><td>Adapté étudiant</td><td>Très fort</td><td>Fort</td><td>Conditionnel</td><td>Non</td><td>Non</td></tr>
+  </table>
+
+  <h2>Raisons du choix</h2>
+  <ul>
+    <li>Gratuité totale et licence libre, conformes à la contrainte étudiante.</li>
+    <li>Interface web moderne, accessible à un public en formation.</li>
+    <li>Documentation officielle abondante et tutoriels communautaires nombreux.</li>
+    <li>Adoption massive en milieu éducatif francophone.</li>
+    <li>Ressources serveur modestes, compatibles avec une VM sur un portable étudiant.</li>
+    <li>Capacité multicast permettant une démonstration de déploiement parallèle.</li>
+  </ul>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>11</span></div>
+</section>
+
+<!-- PAGE 12 : ARCHITECTURE DESCRIPTION -->
+<section class="page content">
+  <div class="eyebrow">03 — Architecture cible</div>
+  <h1 class="h-page">Description et topologie</h1>
+  <p class="lead">L'architecture repose sur trois portables reliés à un switch 8 ports physique, formant un segment réseau isolé.</p>
+
+  <h2>Répartition des rôles techniques</h2>
+  <table class="data">
+    <tr><th>Hôte</th><th>Membre</th><th>Charge utile</th></tr>
+    <tr><td>PC master</td><td>Hadjiu Ernest</td><td>VM serveur FOG (Ubuntu Server) et VM source Windows 10 pour la capture</td></tr>
+    <tr><td>PC client 1</td><td>Demeereleere Renan</td><td>VM cliente Windows 10 cible du déploiement</td></tr>
+    <tr><td>PC client 2</td><td>Terroir Nicolas</td><td>VM cliente Windows 10 cible du déploiement</td></tr>
+  </table>
+
+  <h2>Logique de fonctionnement</h2>
+  <ol>
+    <li>Les trois portables sont branchés au switch via leur interface Ethernet ou un adaptateur USB-Ethernet.</li>
+    <li>Chaque VirtualBox est configuré en mode Bridged sur l'interface Ethernet de l'hôte.</li>
+    <li>La VM serveur FOG démarre et expose son interface web sur une adresse IP fixe du segment isolé.</li>
+    <li>Une VM cliente vide est créée sur le portable de Renan ou Nicolas.</li>
+    <li>La VM cliente est configurée pour démarrer en PXE (Preboot Execution Environment, démarrage par le réseau).</li>
+    <li>L'administrateur déclenche depuis l'interface FOG soit une capture, soit un déploiement.</li>
+    <li>Une fois le transfert terminé, la VM cliente redémarre sur son disque local avec le système déployé.</li>
+  </ol>
+
+  <h2>Adressage prévu</h2>
+  <table class="data">
+    <tr><th>Élément</th><th>Adresse IP</th><th>Rôle</th></tr>
+    <tr><td>Serveur FOG</td><td>192.168.50.10</td><td>Statique</td></tr>
+    <tr><td>Pool DHCP clients</td><td>192.168.50.100 à 192.168.50.200</td><td>Distribué par FOG</td></tr>
+    <tr><td>Masque</td><td>255.255.255.0</td><td>/ 24</td></tr>
+  </table>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>12</span></div>
+</section>
+
+<!-- PAGE 13 : SCHEMA RESEAU -->
+<section class="page content">
+  <div class="eyebrow">03 — Architecture cible</div>
+  <h1 class="h-page">Schéma réseau</h1>
+  <p class="lead">Représentation graphique de l'architecture cible du lab Ghost Server.</p>
+
+  <div style="text-align: center; margin-top: 14px;">
+    <img src="schema_reseau.svg" alt="Schéma réseau du lab Ghost Server" style="max-width: 100%; max-height: 200mm; height: auto;">
+  </div>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>13</span></div>
+</section>
+
+<!-- PAGE 14 : SPECS MATERIELLES 1 -->
+<section class="page content">
+  <div class="eyebrow">03 — Architecture cible</div>
+  <h1 class="h-page">Spécifications, postes</h1>
+
+  <h2>Portable master (Ernest)</h2>
+  <table class="data">
+    <tr><th>Élément</th><th>Recommandation</th></tr>
+    <tr><td>Processeur</td><td>x86-64, virtualisation matérielle activée dans le BIOS (VT-x ou AMD-V)</td></tr>
+    <tr><td>RAM hôte</td><td>12 Go minimum (4 Go pour Windows hôte, 8 Go pour la VM serveur FOG)</td></tr>
+    <tr><td>Stockage libre</td><td>80 Go minimum pour la VM FOG et le dépôt d'images</td></tr>
+    <tr><td>Interface réseau</td><td>RJ45 intégré ou adaptateur USB-Ethernet Gigabit</td></tr>
+  </table>
+
+  <h2>Portables clients (Renan et Nicolas)</h2>
+  <table class="data">
+    <tr><th>Élément</th><th>Recommandation</th></tr>
+    <tr><td>Processeur</td><td>x86-64, virtualisation matérielle activée</td></tr>
+    <tr><td>RAM hôte</td><td>8 Go minimum (4 Go pour Windows hôte, 4 Go pour la VM cliente)</td></tr>
+    <tr><td>Stockage libre</td><td>40 Go minimum pour la VM cliente</td></tr>
+    <tr><td>Interface réseau</td><td>RJ45 intégré ou adaptateur USB-Ethernet Gigabit</td></tr>
+  </table>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>14</span></div>
+</section>
+
+<!-- PAGE 15 : SPECS MATERIELLES 2 -->
+<section class="page content">
+  <div class="eyebrow">03 — Architecture cible</div>
+  <h1 class="h-page">Spécifications, réseau et logiciels</h1>
+
+  <h2>Matériel réseau</h2>
+  <table class="data">
+    <tr><th>Élément</th><th>Recommandation</th></tr>
+    <tr><td>Switch</td><td>8 ports Gigabit non managé (TP-Link TL-SG108 ou équivalent)</td></tr>
+    <tr><td>Câbles</td><td>3 câbles Ethernet RJ45 catégorie 5e minimum, 1 à 2 mètres</td></tr>
+    <tr><td>Adaptateurs USB-Ethernet</td><td>Selon disponibilité des ports RJ45 sur les portables, Gigabit obligatoire</td></tr>
+  </table>
+
+  <h2>Logiciels à installer</h2>
+  <table class="data">
+    <tr><th>Logiciel</th><th>Postes concernés</th><th>Source</th></tr>
+    <tr><td>VirtualBox 7.x avec Extension Pack</td><td>Les trois portables</td><td>virtualbox.org</td></tr>
+    <tr><td>Ubuntu Server 22.04 LTS</td><td>Master Ernest</td><td>ubuntu.com</td></tr>
+    <tr><td>FOG Project, version stable</td><td>VM serveur Ernest</td><td>fogproject.org</td></tr>
+    <tr><td>Windows 10 Pro 22H2, ISO d'évaluation</td><td>Master et VMs cibles</td><td>microsoft.com</td></tr>
+  </table>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>15</span></div>
+</section>
+
+<!-- PAGE 16 : RISQUES -->
+<section class="page content">
+  <div class="eyebrow">04 — Analyse des risques</div>
+  <h1 class="h-page">Analyse des risques</h1>
+  <p class="lead">Douze risques identifiés, dépassant largement le minimum de cinq exigé par les consignes.</p>
+
+  <table class="data">
+    <tr><th style="width:4%">#</th><th style="width:30%">Risque</th><th style="width:14%">Impact</th><th style="width:14%">Probabilité</th><th>Mesure préventive</th></tr>
+    <tr><td>1</td><td>Image système corrompue à la capture ou au déploiement</td><td>Élevé</td><td>Moyenne</td><td>Vérification d'intégrité par hash, test sur un poste pilote avant masse</td></tr>
+    <tr><td>2</td><td>Perte de données utilisateur lors d'un redéploiement</td><td>Élevé</td><td>Moyenne</td><td>Procédure imposant une sauvegarde préalable, double validation</td></tr>
+    <tr><td>3</td><td>Conflit entre DHCP FOG et DHCP existant</td><td>Moyen</td><td>Élevée si non isolé</td><td>Isolation stricte du segment lab via switch dédié</td></tr>
+    <tr><td>4</td><td>Procédure documentée incomplète ou ambiguë</td><td>Élevé</td><td>Moyenne</td><td>Tests croisés par le Responsable Qualité, relecture systématique</td></tr>
+    <tr><td>5</td><td>Absence d'un membre lors d'une séance</td><td>Moyen</td><td>Moyenne</td><td>Espace de travail partagé, journal Agile à jour</td></tr>
+    <tr><td>6</td><td>Incompatibilité de format de VM entre VirtualBox et Hyper-V</td><td>Faible</td><td>Faible</td><td>Standardisation VirtualBox actée</td></tr>
+    <tr><td>7</td><td>Indisponibilité matérielle du switch ou des câbles</td><td>Élevé pour démo</td><td>Faible</td><td>Vérification du matériel via checklist</td></tr>
+    <tr><td>8</td><td>Droits administrateur insuffisants sur les hôtes</td><td>Moyen</td><td>Faible</td><td>Vérification préalable, demande formelle si nécessaire</td></tr>
+    <tr><td>9</td><td>Saturation de l'espace disque lors de la capture</td><td>Moyen</td><td>Faible</td><td>Vérification de l'espace libre, 80 Go minimum sur le master</td></tr>
+    <tr><td>10</td><td>Perte de la documentation par panne du portable master</td><td>Élevé</td><td>Faible</td><td>Synchronisation OneDrive automatique, sauvegarde hebdo sur clé USB</td></tr>
+    <tr><td>11</td><td>Faille de sécurité sur la VM FOG (mot de passe par défaut)</td><td>Moyen</td><td>Moyenne</td><td>Changement immédiat du mot de passe, services non utilisés désactivés</td></tr>
+    <tr><td>12</td><td>Mauvaise gestion de Sysprep sur l'image source</td><td>Moyen</td><td>Moyenne</td><td>Procédure Sysprep documentée et exécutée systématiquement</td></tr>
+  </table>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>16</span></div>
+</section>
+
+<!-- PAGE 17 : CHECKLIST -->
+<section class="page content">
+  <div class="eyebrow">05 — Checklist de préparation</div>
+  <h1 class="h-page">Checklist de préparation</h1>
+  <p class="lead">Vingt-deux points de contrôle, dépassant le minimum de dix exigé par les consignes.</p>
+
+  <h2>Matériel et réseau</h2>
+  <ul class="checklist">
+    <li>Portable Ernest présent et fonctionnel</li>
+    <li>Portable Renan présent et fonctionnel</li>
+    <li>Portable Nicolas présent et fonctionnel</li>
+    <li>Switch 8 ports présent et alimenté</li>
+    <li>Câbles Ethernet en quantité suffisante et testés</li>
+    <li>Segment isolé via switch dédié monté</li>
+    <li>Wi-Fi des portables actif pour Internet, distinct du segment lab</li>
+    <li>DHCP du réseau host-only VirtualBox désactivé sur chaque portable</li>
+  </ul>
+
+  <h2>Machines virtuelles</h2>
+  <ul class="checklist">
+    <li>VM serveur FOG installée sur le portable Ernest</li>
+    <li>VM serveur FOG démarrée et accessible via son interface web</li>
+    <li>VM source Windows 10 disponible sur le portable Ernest pour la capture</li>
+    <li>VM cliente cible vide créée sur le portable Renan</li>
+    <li>VM cliente cible vide créée sur le portable Nicolas</li>
+    <li>Ordre de boot Network en premier configuré sur les VMs clientes</li>
+  </ul>
+
+  <h2>Espace disque, droits et documentation</h2>
+  <ul class="checklist">
+    <li>Minimum 80 Go libres sur le portable Ernest</li>
+    <li>Minimum 40 Go libres sur les portables Renan et Nicolas</li>
+    <li>Compte administrateur disponible sur les trois portables</li>
+    <li>Identifiants root et mot de passe FOG admin connus et documentés</li>
+    <li>Espace de travail collaboratif synchronisé via OneDrive</li>
+    <li>Documentation officielle FOG ouverte ou téléchargée localement</li>
+    <li>Mot de passe administrateur FOG modifié, plus de valeur par défaut</li>
+    <li>Aucune image contenant des données sensibles à risque de propagation</li>
+  </ul>
+
+  <div class="footer"><span>Projet Ghost Server</span><span>17</span></div>
+</section>
+
+</body>
+</html>

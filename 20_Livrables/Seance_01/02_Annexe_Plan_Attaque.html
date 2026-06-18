@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Annexe A1, Plan d'attaque</title>
+<style>
+  :root { --ink:#16181d; --ink-2:#3a3f47; --muted:#7a818b; --faint:#b6bcc4; --line:#e3e6ea; --bg:#ffffff; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif; color: var(--ink); background: #ececec; font-size: 10pt; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .page { width: 210mm; min-height: 297mm; margin: 12mm auto; background: var(--bg); padding: 24mm 24mm; box-shadow: 0 2px 14px rgba(0,0,0,.08); display: flex; flex-direction: column; }
+  .cover { justify-content: space-between; padding: 32mm 28mm; }
+  .cover-head { display: flex; justify-content: space-between; font-size: 9pt; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .cover-mid { margin: auto 0; }
+  .rule { width: 56px; height: 2px; background: var(--ink); margin-bottom: 26px; }
+  .cover-mid h1 { font-size: 32pt; font-weight: 700; line-height: 1.1; letter-spacing: -1px; color: var(--ink); }
+  .cover-mid h1 .light { font-weight: 200; color: var(--muted); display: block; }
+  .cover-sub { margin-top: 18px; font-size: 11.5pt; font-weight: 300; color: var(--ink-2); max-width: 85%; }
+  .cover-foot { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .cover-foot .k { font-size: 8pt; text-transform: uppercase; letter-spacing: 1.5px; color: var(--faint); }
+  .cover-foot .v { font-size: 10pt; font-weight: 500; margin-top: 3px; }
+  .eyebrow { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 3px; color: var(--faint); margin-bottom: 8px; }
+  .h-page { font-size: 24pt; font-weight: 700; letter-spacing: -.5px; margin-bottom: 22px; }
+  .content h2 { font-size: 14pt; font-weight: 700; margin: 18px 0 6px; }
+  .content p { margin-bottom: 9px; color: var(--ink-2); }
+  .content p.lead { font-size: 12pt; font-weight: 300; color: var(--ink); line-height: 1.55; margin-bottom: 14px; }
+  .content ul { list-style: none; margin: 8px 0 12px; }
+  .content li { padding-left: 18px; position: relative; margin-bottom: 5px; color: var(--ink-2); }
+  .content ul li::before { content: "—"; position: absolute; left: 0; color: var(--faint); }
+  table.data { width: 100%; border-collapse: collapse; margin: 10px 0 14px; font-size: 9.5pt; }
+  table.data th { text-align: left; padding: 7px 10px 7px 0; border-bottom: 2px solid var(--ink); font-weight: 700; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .5px; color: var(--ink); }
+  table.data td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+  .footer { margin-top: auto; padding-top: 14px; display: flex; justify-content: space-between; font-size: 8pt; letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint); }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+    table, tr, li { page-break-inside: avoid; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="cover-head"><span>IPAMC BAC Info</span><span>2025 — 2026</span></div>
+  <div class="cover-mid">
+    <div class="rule"></div>
+    <h1>Annexe A1<span class="light">Plan d'attaque</span></h1>
+    <p class="cover-sub">Objectif final du projet Ghost Server, étapes prévues et état d'avancement.</p>
+  </div>
+  <div class="cover-foot">
+    <div><div class="k">Version</div><div class="v">1.0</div></div>
+    <div><div class="k">Date</div><div class="v">04.06.2026</div></div>
+    <div><div class="k">Auteur</div><div class="v">Groupe Ghost</div></div>
+    <div><div class="k">Référence</div><div class="v">GHOST-S01-A1</div></div>
+  </div>
+</section>
+
+<section class="page content">
+  <div class="eyebrow">Annexe A1</div>
+  <h1 class="h-page">Objectif et étapes</h1>
+
+  <h2>Objectif final</h2>
+  <p>Déployer une image Windows 10 Pro 22H2 via un serveur FOG hébergé sur le portable d'Ernest, vers deux machines virtuelles clientes hébergées sur les portables de Renan et Nicolas, en utilisant un segment réseau isolé via switch 8 ports.</p>
+  <p>Produire une documentation complète permettant à un autre groupe de reproduire le déploiement à partir des seuls livrables remis.</p>
+
+  <h2>Étapes prévues sur l'ensemble du projet</h2>
+  <table class="data">
+    <tr><th>#</th><th>Étape</th><th>Séance prévue</th><th>État</th></tr>
+    <tr><td>1</td><td>Analyse et cadrage du projet</td><td>Séance 1</td><td>Terminé</td></tr>
+    <tr><td>2</td><td>Choix de l'outil et justification</td><td>Séance 1</td><td>Terminé</td></tr>
+    <tr><td>3</td><td>Définition de l'architecture cible</td><td>Séance 1</td><td>Terminé</td></tr>
+    <tr><td>4</td><td>Documentation initiale</td><td>Séance 1</td><td>Terminé</td></tr>
+    <tr><td>5</td><td>Préparation des VMs et de l'environnement</td><td>Séance 2</td><td>À faire</td></tr>
+    <tr><td>6</td><td>Installation et configuration du serveur FOG</td><td>Séance 2 ou 3</td><td>À faire</td></tr>
+    <tr><td>7</td><td>Préparation de l'image Windows 10 de référence</td><td>Séance 3</td><td>À faire</td></tr>
+    <tr><td>8</td><td>Capture de l'image depuis le poste source</td><td>Séance 3 ou 4</td><td>À faire</td></tr>
+    <tr><td>9</td><td>Déploiement vers les VMs clientes</td><td>Séance 4</td><td>À faire</td></tr>
+    <tr><td>10</td><td>Tests, validation, procédures de restauration</td><td>Séance 5</td><td>À faire</td></tr>
+    <tr><td>11</td><td>Documentation finale et défense orale</td><td>Séance 6</td><td>À faire</td></tr>
+  </table>
+
+  <h2>État d'avancement de la séance 1</h2>
+  <table class="data">
+    <tr><th>Tâche</th><th>État</th></tr>
+    <tr><td>Recherche documentaire sur FOG</td><td>Terminé</td></tr>
+    <tr><td>Matrice comparative des outils</td><td>Terminé</td></tr>
+    <tr><td>Rédaction du rapport d'analyse</td><td>Terminé</td></tr>
+    <tr><td>Conception de l'architecture cible</td><td>Terminé</td></tr>
+    <tr><td>Schéma réseau</td><td>Terminé</td></tr>
+    <tr><td>Analyse des risques</td><td>Terminé</td></tr>
+    <tr><td>Checklist de préparation</td><td>Terminé</td></tr>
+    <tr><td>Documents transverses Agile</td><td>Terminé</td></tr>
+  </table>
+
+  <div class="footer"><span>Annexe A1, Plan d'attaque</span><span>02</span></div>
+</section>
+
+</body>
+</html>

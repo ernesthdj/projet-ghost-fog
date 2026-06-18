@@ -1,0 +1,21 @@
+# --- Obsidian : état d'interface propre à chaque utilisateur (aucune valeur partagée) ---
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.trash/
+
+# --- Claude Code : configuration locale machine ---
+.claude/settings.local.json
+
+# --- Système d'exploitation ---
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# --- Fichiers temporaires / verrous bureautiques ---
+*.tmp
+~$*
+*~
+
+# NB : les PDF et HTML des dossiers 20_Livrables/ et 00_Consignes/ sont des LIVRABLES.
+#     Ils sont volontairement versionnés (ne pas les ignorer).
