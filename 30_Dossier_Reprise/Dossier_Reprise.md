@@ -47,18 +47,18 @@ documenté pour être reproductible par un tiers.
 | 9 | **Centralisation de la doc dans un dépôt Git** + réorganisation des dossiers | S3 |
 
 ### ⏳ Ce qui reste à faire
-| # | Tâche | Priorité | Responsable prévu |
-|---|---|---|---|
-| 1 | Tester le boot PXE sur **CLIENT B** (reporté de S2) | Haute | Nicolas |
-| 2 | Créer la **VM Windows Master** + installer logiciels | Haute | Renan |
-| 3 | Exécuter **Sysprep** (généraliser + arrêt sans redémarrage) | Haute | Renan |
-| 4 | Enregistrer le master dans FOG + créer l'image + tâche **Capture** | Haute | Ernest |
-| 5 | **Capturer** l'image Windows via FOG | Haute | Ernest |
-| 6 | Créer les VMs clientes vides + tâches **Deploy** | Moyenne | Renan / Nicolas |
-| 7 | **Déployer** l'image vers les clients + vérifier le démarrage | Haute | Tous |
-| 8 | **Exporter la VM FOG en `.ova`** (sauvegarde avant manip risquée) | Haute | Ernest |
-| 9 | Procédure de **restauration** en cas d'incident | Moyenne | Nicolas |
-| 10 | Préparation de la **défense orale** | Moyenne | Tous |
+| #   | Tâche                                                              | Priorité | Responsable prévu |
+| --- | ------------------------------------------------------------------ | -------- | ----------------- |
+| 1   | Tester le boot PXE sur **CLIENT B** (reporté de S2)                | Haute    | Nicolas           |
+| 2   | Créer la **VM Windows Master** + installer logiciels               | Haute    | Ernest            |
+| 3   | Exécuter **Sysprep** (généraliser + arrêt sans redémarrage)        | Haute    | Ernest            |
+| 4   | Enregistrer le master dans FOG + créer l'image + tâche **Capture** | Haute    | Ernest            |
+| 5   | **Capturer** l'image Windows via FOG                               | Haute    | Ernest            |
+| 6   | Créer les VMs clientes vides + tâches **Deploy**                   | Moyenne  | Renan / Nicolas   |
+| 7   | **Déployer** l'image vers les clients + vérifier le démarrage      | Haute    | Tous              |
+| 8   | **Exporter la VM FOG en `.ova`** (sauvegarde avant manip risquée)  | Haute    | Ernest            |
+| 9   | Procédure de **restauration** en cas d'incident                    | Moyenne  | Nicolas           |
+| 10  | Préparation de la **défense orale**                                | Moyenne  | Tous              |
 
 > Plan détaillé et à jour : [`../10_Documentation/01_Pilotage/Plan_Attaque.md`](../10_Documentation/01_Pilotage/Plan_Attaque.md)
 

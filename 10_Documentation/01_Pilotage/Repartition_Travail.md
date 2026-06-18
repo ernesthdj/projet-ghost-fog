@@ -24,8 +24,11 @@
 
 | Membre | Rôle prévu durant la séance | Travail prévu |
 |---|---|---|
-| Ernest | Coordination + doc + capture FOG | Centralisation doc, dépôt Git, enregistrement master + capture image |
-| Renan | Infrastructure | VM Windows Master, installation logiciels, Sysprep |
+| Ernest | Coordination + doc + **déploiement master** | Centralisation doc, dépôt Git, **VM Windows Master + logiciels + Sysprep**, enregistrement master + capture image |
+| Renan | Infrastructure | Support serveur FOG, VMs clientes de déploiement |
 | Nicolas | Qualité & Tests | Test PXE CLIENT B, vérification des déploiements |
+
+> Note : la création de la VM Master (tâche initialement tentée par Renan en S2 en l'absence d'Ernest)
+> est reprise par **Ernest**, désormais responsable du déploiement master.
 
 > La répartition réelle sera ajustée selon les présents (absences possibles non connues à l'avance).
