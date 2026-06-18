@@ -26,7 +26,7 @@ Ton job aujourd'hui = les étapes **1, 2 et 3**.
 ## ✅ Avant de commencer — vérifie que tu as tout
 
 - [x] **VirtualBox** ouvert sur ton PC
-- [ ] L'**ISO Windows 10 Pro 22H2** (le fichier `.iso`) quelque part sur ton disque
+- [x] L'**ISO Windows 10 Pro 22H2** (le fichier `.iso`) quelque part sur ton disque
 - [ ] Le **serveur FOG démarré** (la VM Ubuntu) et son interface web qui s'ouvre dans le navigateur
 - [ ] L'**adresse IP du serveur FOG** sous la main (tu la verras dans la VM Ubuntu avec la commande `ip a`, c'est la ligne `enp0s3`)
 - [ ] Au moins **40 Go de libre** sur ton disque

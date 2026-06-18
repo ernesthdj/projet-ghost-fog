@@ -108,6 +108,16 @@
     background: transparent;
   }
   .done li::before { content: "\2713"; border: none; font-size: 12px; line-height: 11px; color: var(--ink); top: 3px; }
+  .ph {
+    border: 1.5px dashed var(--faint); border-radius: 2px;
+    background: var(--bg-soft); height: 46mm;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; color: var(--faint);
+    font-size: 8.5pt; letter-spacing: 2px; text-transform: uppercase;
+    margin: 6px 0 4px;
+  }
+  .cap { font-size: 8.5pt; color: var(--muted); margin-bottom: 12px; }
+  .cap b { color: var(--ink-2); font-weight: 600; }
   .footer {
     margin-top: auto; padding-top: 14px;
     display: flex; justify-content: space-between;
@@ -156,7 +166,8 @@
     <li><span class="num">05</span><span class="label">Journal des incidents</span><span class="pg">07</span></li>
     <li><span class="num">06</span><span class="label">Analyse des risques</span><span class="pg">07</span></li>
     <li><span class="num">07</span><span class="label">Planification &amp; répartition</span><span class="pg">08</span></li>
-    <li><span class="num">08</span><span class="label">Glossaire</span><span class="pg">09</span></li>
+    <li><span class="num">08</span><span class="label">Preuves techniques</span><span class="pg">09</span></li>
+    <li><span class="num">09</span><span class="label">Glossaire</span><span class="pg">11</span></li>
   </ol>
   <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>02</span></div>
 </section>
@@ -351,9 +362,45 @@
   <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>08</span></div>
 </section>
 
-<!-- ====================== 08 — GLOSSAIRE ====================== -->
+<!-- ====================== 08 — PREUVES (1/2) ====================== -->
 <section class="page content">
-  <div class="eyebrow">08 — Glossaire</div>
+  <div class="eyebrow">08 — Preuves</div>
+  <h1 class="h-page">Preuves techniques</h1>
+
+  <p>Captures d'écran documentant la préparation du master et la capture de l'image via FOG. Chaque encadré recevra la capture correspondante au fur et à mesure de l'exécution.</p>
+
+  <div class="ph">Emplacement capture — à insérer</div>
+  <p class="cap"><b>Capture 01</b> — Configuration réseau de la VM Master (VirtualBox), sur le même réseau que la VM FOG.</p>
+
+  <div class="ph">Emplacement capture — à insérer</div>
+  <p class="cap"><b>Capture 02</b> — Bureau Windows 10 installé avec les logiciels du master.</p>
+
+  <div class="ph">Emplacement capture — à insérer</div>
+  <p class="cap"><b>Capture 03</b> — Fenêtre Sysprep avec les réglages (OOBE + Généraliser + Arrêter), avant validation.</p>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>09</span></div>
+</section>
+
+<!-- ====================== 08 — PREUVES (2/2) ====================== -->
+<section class="page content">
+  <div class="eyebrow">08 — Preuves</div>
+  <h1 class="h-page">Preuves techniques (suite)</h1>
+
+  <div class="ph">Emplacement capture — à insérer</div>
+  <p class="cap"><b>Capture 04</b> — FOG : hôte Win10-Master créé, image Win10-Pro-22H2 associée, tâche Capture en attente.</p>
+
+  <div class="ph">Emplacement capture — à insérer</div>
+  <p class="cap"><b>Capture 05</b> — FOG : écran de progression de la capture (partclone).</p>
+
+  <div class="ph">Emplacement capture — à insérer</div>
+  <p class="cap"><b>Capture 06</b> — FOG : image Win10-Pro-22H2 présente avec sa taille (capture réussie).</p>
+
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>10</span></div>
+</section>
+
+<!-- ====================== 09 — GLOSSAIRE ====================== -->
+<section class="page content">
+  <div class="eyebrow">09 — Glossaire</div>
   <h1 class="h-page">Glossaire</h1>
 
   <table class="data">
@@ -376,7 +423,7 @@
 
   <div class="quote">Document de référence complet : « Dossier de reprise du projet », disponible dans le dépôt partagé.</div>
 
-  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>09</span></div>
+  <div class="footer"><span>Projet Ghost — Dossier Séance 3</span><span>11</span></div>
 </section>
 
 </body>
