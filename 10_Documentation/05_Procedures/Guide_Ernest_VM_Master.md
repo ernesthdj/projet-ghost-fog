@@ -96,10 +96,25 @@ Dans **Stockage**, monte l'ISO Ubuntu Server dans le lecteur optique.
 > PXE. On sépare les deux, dans l'esprit « segment isolé » de la S1.
 
 ### 0.4 — Installer Ubuntu Server
-1. Démarre `FOG-Server`, suis l'assistant d'installation.
-2. Crée un utilisateur (ex. `fog`) avec un mot de passe — **note-les** (ils vont dans la doc).
-3. **Coche « Install OpenSSH server »**.
-4. Laisse le partitionnement par défaut, attends la fin (~10 min), **retire l'ISO**, redémarre, connecte-toi.
+Démarre `FOG-Server`. L'installateur enchaîne **plusieurs écrans** (c'est normal qu'il y en ait beaucoup).
+Navigation : **flèches** pour bouger, **Espace** pour cocher, **Entrée** pour valider (la souris ne marche pas).
+
+| Écran | Quoi faire |
+|---|---|
+| Langue | English (ou Français) |
+| (éventuel) Mise à jour de l'installateur | « Continue without updating » |
+| Disposition clavier | French si clavier AZERTY |
+| Type d'installation | « Ubuntu Server » (par défaut), **pas** « minimized » |
+| Connexions réseau | Laisser tel quel. La carte NAT (`enp0s3`) prend une IP auto ; la carte host-only (`enp0s8`) reste **sans IP** → **normal**, on la fixe en 0.5 → **Terminé** |
+| **Proxy** | Laisser **vide** → **Terminé** |
+| Miroir d'archive | Laisser par défaut → **Terminé** |
+| Stockage guidé | « Use an entire disk » → **Terminé** |
+| Résumé du stockage | **Terminé** → **Continue** (confirme le formatage) |
+| Profil | Nom · serveur : `fog-server` · utilisateur : **`fog`** · mot de passe (⚠️ **note-les**) |
+| Ubuntu Pro | « Skip for now » |
+| SSH Setup | ⚠️ **Cocher « Install OpenSSH server »** (Espace) → **Terminé** |
+| Featured snaps | N'en cocher **aucun** → **Terminé** |
+| Installation | Attendre (~10 min) → **« Reboot Now »** + **retirer l'ISO** → se connecter |
 
 ### 0.5 — Donner une IP fixe au segment isolé
 Sur un réseau isolé, il n'y a pas de DHCP au départ → le serveur a besoin d'une IP fixe.
