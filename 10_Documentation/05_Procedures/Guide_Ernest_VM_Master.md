@@ -121,9 +121,17 @@ Sur un réseau isolé, il n'y a pas de DHCP au départ → le serveur a besoin d
 1. Liste les interfaces : `ip a`
    - `enp0s3` = carte **NAT** (a déjà une IP en `10.0.2.x`, Internet) → **ne pas toucher**.
    - `enp0s8` = carte **Host-only fognet** (sans IP pour l'instant) → c'est elle qu'on fixe.
-2. Édite le fichier réseau : `sudo nano /etc/netplan/50-cloud-init.yaml`
-   *(s'il porte un autre nom, fais `ls /etc/netplan/` et édite celui qui s'y trouve)*
-3. Mets ceci (⚠️ indentation = 2 espaces, pas de tabulation) :
+2. **D'abord** trouve le vrai nom du fichier (ne devine pas, sinon tu crées un fichier vide → « Read 0 lines ») :
+   ```bash
+   ls /etc/netplan/
+   ```
+   → souvent `00-installer-config.yaml` ou `50-cloud-init.yaml`.
+3. Ouvre-le **avec `sudo`** (obligatoire pour pouvoir sauvegarder) :
+   ```bash
+   sudo nano /etc/netplan/LE-VRAI-NOM.yaml
+   ```
+4. Complète-le pour obtenir exactement ceci (⚠️ que des **espaces** = 2 par niveau, jamais de tabulation ;
+   et la clé s'écrit bien **`addresses`** — anglais, deux `d`) :
    ```yaml
    network:
      version: 2
@@ -134,8 +142,8 @@ Sur un réseau isolé, il n'y a pas de DHCP au départ → le serveur a besoin d
          dhcp4: false
          addresses: [192.168.56.10/24]
    ```
-4. Applique : `sudo netplan apply`
-5. Vérifie : `ip a` → `enp0s8` doit afficher **192.168.56.10**.
+5. Sauve (dans nano : `Ctrl+O` puis Entrée, puis `Ctrl+X`) et applique : `sudo netplan apply`
+6. Vérifie : `ip a` → `enp0s8` doit afficher **192.168.56.10**.
 
 ### 0.6 — Installer FOG Project
 Commandes (validées par l'équipe en S2) :
