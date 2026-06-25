@@ -207,7 +207,7 @@ et affiche une **URL avec un token** : `http://192.168.56.10/fog/management/inde
 
 ### Réglages importants à faire AVANT de démarrer
 Sélectionne `Win10-Master` → **Configuration** :
-- **Système → onglet Carte mère** : ordre d'amorçage → mets **Réseau (Network)** tout en haut de la liste, puis **Disque dur**. *(Coche/décoche avec les flèches.)* C'est ce qui permettra le boot PXE plus tard.
+- **Système → onglet Carte mère → ordre d'amorçage** : pour **l'installation de Windows**, mets **Optique (CD) en premier**, puis Disque dur. ⚠️ On basculera sur **Réseau en premier** seulement **avant la capture** (ÉTAPE 6) — sinon le PXE de FOG interfère avec l'install Windows.
 - **Réseau → Carte 1** : **Réseau Hôte privé (Host-only)** → réseau **`fognet`** (le même que le serveur FOG). ⚠️ Une seule carte suffit pour le master. C'est LE point qui peut tout bloquer s'il est faux.
 - **Stockage** : clique sur le petit CD « Vide » → à droite, icône disque → **Choisir un fichier de disque** → sélectionne ton **ISO Windows 10**.
 
@@ -303,6 +303,9 @@ Installe ici **tout ce que tu veux retrouver sur chaque machine déployée** (na
 
 ## ÉTAPE 7 — Lancer la capture
 
+0. ⚠️ **Avant de démarrer** : remets l'**ordre d'amorçage sur Réseau en premier** (VirtualBox →
+   `Win10-Master` → Configuration → Système → Carte mère). C'est nécessaire pour le boot PXE
+   (on l'avait mis sur CD pour l'installation de Windows).
 1. Démarre la VM `Win10-Master`. Comme le boot réseau est en premier, elle démarre en **PXE** et contacte FOG.
 2. Un écran FOG (fond bleu/noir, texte) apparaît, puis **partclone** affiche une barre de progression : FOG lit le disque et envoie l'image au serveur.
 3. ⏳ Attends la fin (10-30 min selon la taille). La VM s'éteindra / redémarrera à la fin.
