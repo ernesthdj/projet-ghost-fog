@@ -146,11 +146,16 @@ Sur un réseau isolé, il n'y a pas de DHCP au départ → le serveur a besoin d
 6. Vérifie : `ip a` → `enp0s8` doit afficher **192.168.56.10**.
 
 ### 0.6 — Installer FOG Project
+> ⚠️ Si `apt update` affiche « Le fichier Release n'est pas encore valable » → l'horloge de la VM est
+> en retard. Corrige avec `sudo timedatectl set-ntp true` (attends ~20 s) puis vérifie `timedatectl`
+> (`System clock synchronized: yes`).
+
 Commandes (validées par l'équipe en S2) :
 ```bash
+sudo timedatectl set-ntp true   # synchronise l'horloge (évite les erreurs apt)
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y git
-git clone https://github.com/FOGProject/fogproject.git /opt/fogproject
+sudo git clone https://github.com/FOGProject/fogproject.git /opt/fogproject   # ⚠️ sudo obligatoire (écriture dans /opt)
 cd /opt/fogproject/bin
 sudo bash installfog.sh
 ```
