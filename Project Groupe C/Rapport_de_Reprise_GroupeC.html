@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Rapport de reprise — Projet Serveur Ghost (Groupe C)</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Aptos", "Segoe UI", "Calibri", Arial, sans-serif;
+    color: #1a1a1a;
+    font-size: 11pt;
+    line-height: 1.5;
+    margin: 0;
+  }
+  h1.phase {
+    color: #2E74A8;
+    text-align: center;
+    font-weight: 600;
+    font-size: 19pt;
+    margin: 26px 0 4px;
+    letter-spacing: .2px;
+  }
+  h1.phase + .rule { border: none; border-top: 1.4px solid #1a1a1a; margin: 0 0 18px; }
+  h1.phase:first-of-type { margin-top: 0; }
+  .rule { border: none; border-top: 1.4px solid #1a1a1a; }
+
+  .doc-title { color: #2E74A8; font-size: 22pt; font-weight: 600; margin: 0 0 2px; }
+  .doc-sub { color: #555; font-size: 10.5pt; margin: 0 0 14px; }
+
+  h2 { font-size: 12.5pt; font-weight: 600; color: #1a1a1a; margin: 18px 0 6px; }
+  h3 { font-size: 11pt; font-weight: 600; color: #2E74A8; margin: 14px 0 4px; }
+  p { margin: 0 0 9px; }
+  ul, ol { margin: 4px 0 10px; padding-left: 22px; }
+  li { margin-bottom: 4px; }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 8px 0 16px;
+    font-size: 10pt;
+  }
+  th, td {
+    border: 1px solid #404040; padding: 6px 9px;
+    text-align: left; vertical-align: top;
+  }
+  th { background: #eef3f7; font-weight: 600; color: #1a1a1a; }
+  td.center, th.center { text-align: center; white-space: nowrap; }
+
+  blockquote {
+    margin: 10px 0 14px; padding: 8px 14px;
+    border-left: 3px solid #2E74A8; background: #f5f8fb;
+    color: #333; font-size: 10pt;
+  }
+  blockquote p { margin: 0; }
+
+  .meta td:first-child { width: 32%; background: #f7f9fb; }
+  code { background: #f0f2f5; padding: 1px 4px; border-radius: 3px; font-size: 9.5pt; }
+  .small { font-size: 9.5pt; color: #555; }
+  .pb { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<p class="doc-title">Rapport de reprise — Projet « Serveur Ghost »</p>
+<p class="doc-sub">Séance 4 · Phase 2 — Transfert du projet · Projet repris du Groupe C</p>
+
+<blockquote><p>Exercice : notre équipe reçoit le projet d'un autre groupe et doit le reprendre uniquement
+sur base des documents transmis, sans pouvoir interroger l'équipe d'origine dans un premier temps.</p></blockquote>
+
+<table class="meta">
+  <tr><td>Équipe repreneuse</td><td>Ernest Hadjiu · Renan Demeereleere · Nicolas Terroir</td></tr>
+  <tr><td>Projet repris</td><td>« Déploiement serveur Ghost »</td></tr>
+  <tr><td>Équipe d'origine</td><td>Théo C · Théo W · Mamadou</td></tr>
+  <tr><td>Documents reçus</td><td><code>Projet groupe deploiement serveur Ghost.pdf</code> · <code>dossier_de_reprise (1).pdf</code></td></tr>
+  <tr><td>Date de reprise</td><td>25/06/2026</td></tr>
+</table>
+
+<h1 class="phase">Phase 3 : Analyse du dossier reçu</h1>
+<hr class="rule">
+
+<table>
+  <tr><th style="width:18%">Élément</th><th class="center" style="width:13%">Compris ?</th><th>Commentaires</th></tr>
+  <tr>
+    <td>Objectif du projet</td><td class="center">Oui</td>
+    <td>Clair et redondant entre les deux docs : produire une image disque (copie complète d'un disque) via un « serveur Ghost », pour servir de backup et de modèle de clonage vers d'autres postes. Objectif pédagogique annexe explicité (travail d'équipe : planification, préparation, validation).</td>
+  </tr>
+  <tr>
+    <td>Architecture</td><td class="center">Partiel</td>
+    <td>Seulement un schéma conceptuel (Serveur Ghost ↔ réseau ↔ PC1/PC2). Aucune architecture concrète : pas de plan d'adressage IP (Internet Protocol — identifiant réseau d'une machine), pas de specs des machines virtuelles, pas d'hyperviseur nommé, pas de mode réseau (NAT / Bridged / Host-only). La checklist S1 évoque « switch dédié ou VLAN isolé » et « DHCP de déploiement » sans valeurs réelles.</td>
+  </tr>
+  <tr>
+    <td>État d'avancement</td><td class="center">Oui</td>
+    <td>Honnête et lisible : compréhension validée, installation commencée (« bcp de problèmes »), dossier de reprise et rapport journalier rédigés. La phase de test n'est pas faite. Statut global : « en cours de peaufinage ».</td>
+  </tr>
+  <tr>
+    <td>Procédures</td><td class="center">Non</td>
+    <td>Bloquant. Les procédures d'installation et de configuration renvoient à « voir procédure discord » — document non transmis, donc inaccessible. La procédure de test est inexistante (« pas encore réalisé »). Aucune procédure reproductible exploitable en l'état.</td>
+  </tr>
+  <tr>
+    <td>Risques identifiés</td><td class="center">Partiel</td>
+    <td>Le rapport d'analyse S1 contient un tableau de risques (mauvaise image, perte de données, mauvaise procédure, mauvaise config réseau, espace disque, MAJ non appliquée — avec impact et prévention). Mais dans le dossier de reprise, la section « Analyse de risque » est laissée vide (titres sans contenu). Incohérence entre les deux livrables.</td>
+  </tr>
+  <tr>
+    <td>Travail restant</td><td class="center">Oui</td>
+    <td>Explicitement listé : (1) terminer l'installation et réaliser les tests ; (2) mettre à jour la documentation. Cohérent avec l'état d'avancement.</td>
+  </tr>
+</table>
+
+<h3>Constat de fond (avant manipulation technique)</h3>
+<p>Ambiguïté sur l'outil réel. Le rapport d'analyse décrit longuement Symantec Ghost (logiciel propriétaire,
+avec ses CVE — Common Vulnerabilities and Exposures, failles de sécurité référencées). Mais le dossier de
+reprise parle de PXE (Preboot eXecution Environment — démarrage d'un OS par le réseau sans support physique)
+et d'installation sur un OS serveur. On ne peut pas déterminer avec certitude quel logiciel est réellement
+déployé ni sa version — c'est l'angle mort principal du dossier.</p>
+
+<h1 class="phase pb">Phase 4 : Recherche des informations manquantes</h1>
+<hr class="rule">
+<table>
+  <tr><th style="width:34%">Information recherchée</th><th class="center" style="width:12%">Trouvée ?</th><th>Impact sur le projet</th></tr>
+  <tr><td>Procédures d'installation et de configuration (renvoyées vers Discord)</td><td class="center">Non</td><td>Bloquant majeur. Sans elles, impossible de reproduire ou de poursuivre l'installation. Reconstitution obligatoire, d'où une perte de temps importante.</td></tr>
+  <tr><td>Nom et version exacts du logiciel serveur (Symantec Ghost ? outil type FOG ? version ?)</td><td class="center">Non</td><td>Élevé. Détermine toute la suite (méthode d'install, capture/déploiement, compatibilité OS). Ambiguïté entre l'analyse et le dossier de reprise.</td></tr>
+  <tr><td>Plan d'adressage IP et configuration réseau (IP serveur, plage DHCP, mode réseau, passerelle)</td><td class="center">Non</td><td>Élevé. Le PXE et le déploiement réseau ne fonctionnent pas sans réseau maîtrisé. La mention « problème de wifi » suggère un réseau non stabilisé.</td></tr>
+  <tr><td>Specs de l'environnement de virtualisation (hyperviseur, RAM, disque, OS hôte)</td><td class="center">Non</td><td>Moyen. Nécessaire pour recréer un environnement identique et reproduire l'incident de compatibilité.</td></tr>
+  <tr><td>Rôle exact de « Windows Server 2019 » (OS hôte du serveur, ou OS client à capturer ?)</td><td class="center">Déduit</td><td>Moyen. Le dossier dit que la solution a été trouvée « sur Windows Server 2019 » sans préciser son rôle. Hypothèse : OS hôte du serveur d'images. À valider.</td></tr>
+  <tr><td>Détail du « problème wifi » (nature, machine, résolu ?)</td><td class="center">Non</td><td>Moyen. Un déploiement réseau exige une connexion filaire fiable ; un problème wifi non résolu peut rebloquer la phase de test.</td></tr>
+  <tr><td>Comptes / identifiants (admin serveur, OS)</td><td class="center">Non</td><td>Moyen. Requis pour accéder à l'environnement existant s'il devait être récupéré tel quel.</td></tr>
+</table>
+
+<h1 class="phase pb">Phase 5 : Reprise du projet</h1>
+<hr class="rule">
+
+<h2>1. Prochaine étape logique identifiée</h2>
+<p>Reconstituer une procédure d'installation/configuration fiable et reproductible, puis réaliser la première
+phase de test (capture d'une image d'un poste « cobaye » et redéploiement sur un second poste).</p>
+
+<h2>2. Justification du choix</h2>
+<ol>
+  <li>Le travail restant annoncé est sans ambiguïté : « terminer l'installation et réaliser les tests ». La continuité logique pointe vers la phase de test.</li>
+  <li>Mais cette phase est inatteignable directement : procédures sur Discord (non fournies) et test jamais documenté. On ne peut pas tester ce qu'on ne sait pas installer.</li>
+  <li>La première action utile est de lever les bloquants documentaires : figer l'outil, l'OS serveur et le réseau, puis réécrire une procédure exploitable. C'est la leçon de continuité de l'exercice : un projet doit être reproductible sans son auteur.</li>
+</ol>
+
+<h2>3. Tâches réalisables (sur base des seuls documents reçus)</h2>
+<ul>
+  <li>Analyse complète des deux documents (objectif, architecture, travail restant — ci-dessus).</li>
+  <li>Cartographie des manques (Phase 4), pour préparer les questions au retour des auteurs (Phase 6).</li>
+  <li>Lever l'ambiguïté outil — hypothèse : retenir un serveur d'images réseau avec PXE (cohérent avec le dossier de reprise et le schéma), plutôt que le Symantec Ghost propriétaire de l'analyse. À confirmer en Phase 6.</li>
+  <li>Reconstitution d'une procédure d'installation cible (ci-dessous) à partir de la checklist S1, exploitable.</li>
+</ul>
+
+<h2>4. Procédure cible reconstituée (squelette à valider)</h2>
+<blockquote><p>Reconstruite à partir de la <i>Checklist de préparation</i> (rapport d'analyse S1) et de l'incident
+de compatibilité documenté. Remplace le renvoi « voir Discord » manquant.</p></blockquote>
+<ol>
+  <li>Préparer l'hôte de virtualisation (réseau en switch dédié / VLAN isolé pour ne pas perturber le réseau de l'école).</li>
+  <li>Créer la VM serveur sous Windows Server 2019 (seul OS validé ; Win10 et Win Server 2022 = échecs documentés).</li>
+  <li>Fixer l'adressage : IP statique serveur et plage DHCP dédiée au déploiement (valeurs à définir — manquantes).</li>
+  <li>Installer et configurer le logiciel serveur d'images (étape à re-documenter intégralement).</li>
+  <li>Préparer un poste cobaye et un snapshot de la VM vierge avant toute manipulation (mesure préventive S1).</li>
+  <li>Phase de test : capturer l'image du cobaye, la stocker, la redéployer sur un 2ᵉ poste via PXE.</li>
+  <li>Valider (checklist qualité) puis mettre à jour la documentation.</li>
+</ol>
+
+<h2>5. Documentation des actions</h2>
+<p>Le présent rapport constitue la trace de nos actions de reprise : analyse, identification des manques,
+décision justifiée et procédure reconstituée. Toute action technique ultérieure sera journalisée à la suite.</p>
+
+<h1 class="phase pb">Phase 6 : Retour des anciens responsables</h1>
+<hr class="rule">
+<blockquote><p>Les auteurs redeviennent disponibles comme personnes ressources (ils ne réalisent pas le
+travail à notre place). Questions classées par priorité, issues de la Phase 4.</p></blockquote>
+<ol>
+  <li>(Bloquant) Pouvez-vous transmettre la procédure Discord d'installation et de configuration ?</li>
+  <li>(Bloquant) Quel logiciel exact (et version) : Symantec Ghost, FOG, ou autre ?</li>
+  <li>Quel est le rôle de Windows Server 2019 : OS hôte du serveur, ou OS client à imager ?</li>
+  <li>Quel hyperviseur et quelles specs VM (RAM, disque) ?</li>
+  <li>Quel plan d'adressage IP (IP serveur, passerelle, plage DHCP) et quel mode réseau ?</li>
+  <li>Le problème wifi a-t-il été résolu ? Le déploiement se fait-il en filaire ?</li>
+  <li>Existe-t-il des identifiants (admin serveur/OS) à nous communiquer ?</li>
+</ol>
+
+<h1 class="phase pb">Rapport de reprise (synthèse à remettre)</h1>
+<hr class="rule">
+
+<h2>1. Ce que nous avons compris facilement</h2>
+<p>L'objectif du projet (serveur d'images disque pour backup et clonage) et le travail restant (finir
+l'installation, faire les tests, mettre à jour la doc). Le schéma conceptuel rend le principe
+serveur ↔ réseau ↔ postes immédiatement lisible.</p>
+
+<h2>2. Ce qui était bien documenté</h2>
+<p>La partie analyse théorique S1 (définition d'une image système, avantages, limites, risques, questions
+ITIL — Information Technology Infrastructure Library, référentiel de bonnes pratiques IT) et la checklist de
+préparation, complète et réutilisable. Le glossaire du dossier de reprise est clair et pédagogique.
+L'état d'avancement est honnête (les difficultés sont assumées).</p>
+
+<h2>3. Ce qui nous a manqué</h2>
+<p>Les procédures réelles (renvoyées vers Discord, donc absentes), le nom et la version exacts du logiciel,
+le plan d'adressage réseau et les specs de l'environnement. La section « Analyse de risque » du dossier de
+reprise est vide. En somme, tout le concret reproductible manque.</p>
+
+<h2>4. Difficultés rencontrées</h2>
+<p>Impossible de distinguer quel outil est réellement déployé (Symantec Ghost théorique ≠ PXE évoqué en
+pratique). L'absence de procédure rend toute poursuite technique impossible sans reconstitution préalable.
+Incohérence entre les risques bien remplis (S1) et la section risques vide (dossier de reprise).</p>
+
+<h2>5. Temps perdu à rechercher des informations</h2>
+<p>L'essentiel du temps a été consacré à chercher des informations absentes (procédures, outil, réseau)
+plutôt qu'à avancer techniquement. Le renvoi « voir Discord » est la principale cause : une information citée
+mais non jointe équivaut à une information manquante.</p>
+
+<h2>6. Recommandations pour améliorer le dossier</h2>
+<ul>
+  <li>Intégrer les procédures dans le dossier lui-même — jamais de renvoi externe (Discord) : le dossier doit être autoporteur.</li>
+  <li>Nommer précisément l'outil et sa version, avec source de téléchargement et hash de vérification.</li>
+  <li>Fournir le plan d'adressage IP et la configuration réseau (valeurs réelles, pas seulement « VLAN isolé »).</li>
+  <li>Documenter les specs de l'environnement (hyperviseur, RAM, disque, OS).</li>
+  <li>Remplir la section risques du dossier de reprise et l'aligner avec le tableau S1.</li>
+  <li>Capturer des preuves (captures d'écran) de chaque étape, surtout l'incident Win Server 2022 → 2019.</li>
+</ul>
+
+<h2>7. Travail réalisé durant la séance</h2>
+<p>Lecture et analyse des deux documents reçus ; complétion des tableaux d'analyse (Phase 3) et des informations
+manquantes (Phase 4) ; choix justifié de la prochaine étape logique (Phase 5) ; reconstitution d'un squelette de
+procédure d'installation à partir de la checklist S1 ; préparation des questions pour le retour des auteurs
+(Phase 6) ; rédaction du présent rapport de reprise.</p>
+
+<h2>Critères d'évaluation — auto-positionnement</h2>
+<table>
+  <tr><th style="width:38%">Critère</th><th>Comment nous y répondons</th></tr>
+  <tr><td>Comprendre un projet existant</td><td>Phase 3 : chaque élément analysé et qualifié (Oui / Partiel / Non).</td></tr>
+  <tr><td>Utilisation de la documentation</td><td>Appui exclusif sur les 2 documents reçus et la checklist S1 réutilisée.</td></tr>
+  <tr><td>Esprit d'analyse</td><td>Détection des incohérences (outil ambigu, risques vides, renvoi Discord).</td></tr>
+  <tr><td>Qualité du rapport de reprise</td><td>Document structuré, 7 points complétés, recommandations actionnables.</td></tr>
+  <tr><td>Capacité à poursuivre le projet</td><td>Phase 5 : étape suivante identifiée et procédure cible reconstituée.</td></tr>
+  <tr><td>Communication d'équipe</td><td>Phase 6 : questions priorisées prêtes pour les personnes ressources.</td></tr>
+</table>
+
+</body>
+</html>
