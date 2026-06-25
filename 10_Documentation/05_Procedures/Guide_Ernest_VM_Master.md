@@ -175,11 +175,16 @@ Réponses au script (cohérentes avec la S1) :
 ⏳ Le script télécharge et configure (MySQL, Apache, TFTP…). À la fin, il affiche une **URL**.
 
 ### 0.7 — Finaliser via l'interface web
-1. Sur **ton PC hôte**, ouvre le navigateur : **`http://192.168.56.10/fog/management`**
-   *(ton PC accède au segment via l'adaptateur Host-only 192.168.56.1)*.
-2. Clique **Install/Update Database** au premier accès.
-3. Connecte-toi : `fog` / `password`.
-4. **Change immédiatement le mot de passe** (menu Users) — et note-le dans la doc.
+En fin d'installation, le script s'arrête sur :
+*« You still need to install/update your database schema … Press [Enter] when database is updated/installed »*
+et affiche une **URL avec un token** : `http://192.168.56.10/fog/management/index.php?node=schema&fogtoken=<64 caractères>`.
+
+1. Sur **ton PC hôte**, ouvre le navigateur et colle cette **URL complète** (avec tout le `fogtoken=…`).
+   > ⚠️ **Piège classique** : sans le token (ou avec un token tronqué/coupé sur 2 lignes du terminal) → page **« Unauthorized »**. Le token fait **64 caractères**, recopie-le **en entier**. Passe la VM en plein écran (CTRL Droite + F) pour bien le lire.
+2. Sur la page « Database Schema Installer », clique **Install/Update Now**.
+   > Si le navigateur affiche encore « Unauthorized » après le clic : recharge la page via l'URL complète et reclique (souci de session/CSRF connu). En dernier recours, l'install se déclenche par une requête HTTP directe (POST `confirm` + `fogtoken` sur `?node=schema`).
+3. Quand la page d'accueil affiche **« Login »**, reviens dans la VM et appuie sur **Entrée** pour finir le script (« Setup complete! »).
+4. Connecte-toi : `fog` / `password`, puis **change immédiatement le mot de passe** (FOG Configuration → User Management) — note-le dans la doc.
 5. Vérifie que le tableau de bord FOG s'affiche.
 
 > 📸 **Captures à prendre** : le script FOG terminé (URL affichée) + le tableau de bord FOG connecté.
