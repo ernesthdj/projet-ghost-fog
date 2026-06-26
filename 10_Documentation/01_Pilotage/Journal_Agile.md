@@ -69,7 +69,10 @@ Risque d'absence d'un ou plusieurs membres (non connu à l'avance).
 - Centralisation : rapatriement du travail S2 (jusque-là dans un PDF) dans le vault Markdown.
 - Création du **Dossier de reprise** (`30_Dossier_Reprise/`).
 - Mise en place du **dépôt Git + GitHub** `projet-ghost-fog`.
-- _(à compléter en fin de séance : avancée technique du jour)_
+- **Volet technique :** Ernest a installé **son propre serveur FOG** (VM Ubuntu `fog-server`, FOG 1.5.10,
+  réseau Host-only 192.168.56.10, FOG=DHCP) — opérationnel, interface web accessible, mot de passe changé.
+- Début de la **VM Windows Master** : Win10 Pro installé (sans clé). Session interrompue à la config OOBE.
+- Point de reprise rédigé : `Point_Reprise.md`.
 
 ### Ce qui a bloqué
 _À compléter en fin de séance._
